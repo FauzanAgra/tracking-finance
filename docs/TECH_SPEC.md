@@ -6,6 +6,7 @@
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements)](PRD.md)
   - [ERD (Database Schema & Dictionary)](ERD.md)
+  - [Tasks & Backlog Board](TASKS.md)
 
 ---
 
@@ -200,6 +201,7 @@ Jika sesi percakapan dipindahkan ke AI lain atau di sesi baru, instruksikan AI t
 5. **Tailwind CSS Utility**: Gunakan styling class Tailwind murni di file `.blade.php`. Hindari menulis CSS kustom di file CSS eksternal kecuali utility animasi sederhana.
 6. **Git Commit Standards (Conventional Commits v1.2.0)**: Selalu gunakan format `<type>(<scope>): <subject>` dengan imperative mood (`feat`, `fix`, `docs`, `refactor`, `style`, `test`, `build`, `chore`). Dilarang membuat commit besar yang menggabungkan banyak perubahan yang tidak berhubungan (gunakan atomic commit).
 7. **Scope Guardrails (Anti Out-Of-Topic)**: Jangan menambahkan fitur atau library yang tidak tercantum di `docs/PRD.md` tanpa persetujuan pengguna.
+8. **Update Task Board**: Setiap kali suatu tiket selesai dikerjakan, perbarui checklist `[x]` dan cantumkan hash commit di `docs/TASKS.md`.
 
 ---
 

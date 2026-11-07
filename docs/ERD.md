@@ -7,6 +7,7 @@
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements)](PRD.md)
   - [Technical Specification & Architecture](TECH_SPEC.md)
+  - [Tasks & Backlog Board](TASKS.md)
 
 ---
 

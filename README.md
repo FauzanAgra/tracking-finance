@@ -27,6 +27,8 @@ Seluruh dokumentasi teknikal dan arsitektur tersimpan rapi di dalam folder [`doc
    *Diagram visual Mermaid dan Kamus Data (Data Dictionary) lengkap untuk 12 tabel database.*
 3. ⚙️ **[Technical Specification & Architecture (Tech Spec)](docs/TECH_SPEC.md)**  
    *Arsitektur Service Layer, kontrak API pihak ketiga (Gemini, CoinGecko, Yahoo), struktur folder, dan panduan koding.*
+4. 📋 **[Tasks & Implementation Backlog](docs/TASKS.md)**  
+   *Papan tugas terstruktur (41 tiket) lengkap dengan kriteria penerimaan, checklist, dan riwayat commit.*
 
 ---
 
