@@ -1,0 +1,8 @@
+You are working on Tracking Finance.
+Before writing code or answering architectural questions:
+1. Read `AGENTS.md`
+2. Follow `docs/TECH_SPEC.md` for architecture and Service Layer pattern.
+3. Follow `docs/ERD.md` for database schema and field names.
+4. Follow `docs/PRD.md` for feature logic and business rules.
+Tech stack: Laravel 13, PHP 8.4, Blade, Tailwind CSS v4.3 (@tailwindcss/vite), Alpine.js, MySQL 8.0. Do not introduce Vue/React/Inertia/Livewire without explicit permission.
+Always explain steps clearly for a learner.
