@@ -192,12 +192,14 @@ DEFAULT_BASE_CURRENCY=IDR
 
 ## 6. Aturan Khusus untuk AI Assistant Baru (Prompting Directives)
 
-Jika sesi percakapan dipindahkan ke AI lain atau di sesi baru, instruksikan AI tersebut dengan aturan berikut:
+Jika sesi percakapan dipindahkan ke AI lain atau di sesi baru, instruksikan AI tersebut dengan aturan berikut (rujuk selengkapnya di [AGENTS.md](../AGENTS.md)):
 1. **Dilarang Mengubah Tech Stack**: Selalu gunakan Laravel 13 (PHP 8.4) + Blade + Tailwind CSS v4.3 + Alpine.js. Jangan beralih ke React, Vue, atau Livewire kecuali diminta secara eksplisit oleh pengguna.
 2. **Kepatuhan Terhadap Skema Database**: Selalu rujuk file `docs/ERD.md` untuk nama tabel dan kolom. Jangan mengarang nama kolom baru tanpa update ERD.
 3. **Database Transactions**: Semua operasi mutasi saldo (dompet, transfer, cicilan utang, pembelian aset) **wajib dibungkus** dengan `DB::transaction()` untuk mencegah inkonsistensi data saldo.
 4. **Pedagogical Coding Style**: Pengguna adalah pemula yang sedang belajar. Setiap kali membuat atau memodifikasi file, jelaskan secara singkat alur kerjanya (*apa fungsi baris kode ini*).
 5. **Tailwind CSS Utility**: Gunakan styling class Tailwind murni di file `.blade.php`. Hindari menulis CSS kustom di file CSS eksternal kecuali utility animasi sederhana.
+6. **Git Commit Standards (Conventional Commits v1.2.0)**: Selalu gunakan format `<type>(<scope>): <subject>` dengan imperative mood (`feat`, `fix`, `docs`, `refactor`, `style`, `test`, `build`, `chore`). Dilarang membuat commit besar yang menggabungkan banyak perubahan yang tidak berhubungan (gunakan atomic commit).
+7. **Scope Guardrails (Anti Out-Of-Topic)**: Jangan menambahkan fitur atau library yang tidak tercantum di `docs/PRD.md` tanpa persetujuan pengguna.
 
 ---
 
