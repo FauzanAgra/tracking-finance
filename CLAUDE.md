@@ -12,5 +12,5 @@ Strict rules:
 - Adhere strictly to database schema in `docs/ERD.md`.
 - Adhere to Conventional Commits v1.2.0 (`<type>(<scope>): <subject>`) for all commits.
 - Anti Out-Of-Topic: Do not implement features outside `docs/PRD.md` without confirmation.
-- Task Tracking: Mark tasks completed `[x]` with commit hash in `docs/TASKS.md`.
+- Task Tracking: Mark tasks `[x]` with date in `docs/TASKS.md` before committing, and commit together in a single commit without ticket IDs in the commit message.
 - Explain changes step-by-step for the user.

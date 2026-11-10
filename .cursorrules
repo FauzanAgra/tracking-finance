@@ -7,5 +7,5 @@ Before writing code or answering architectural questions:
 Tech stack: Laravel 13, PHP 8.4, Blade, Tailwind CSS v4.3 (@tailwindcss/vite), Alpine.js, MySQL 8.0. Do not introduce Vue/React/Inertia/Livewire without explicit permission.
 Always follow Conventional Commits v1.2.0 (`<type>(<scope>): <subject>`) using imperative mood.
 Anti Out-Of-Topic: Do not implement features or schema changes not documented in `docs/PRD.md` or `docs/ERD.md`.
-Task Tracking: Update `docs/TASKS.md` by marking completed tickets `[x]` with commit hash.
+Task Tracking: Update `docs/TASKS.md` (`[x]` and date) before committing, and commit together in 1 single commit without ticket IDs in the commit message.
 Always explain steps clearly for a learner.

@@ -75,7 +75,8 @@ $$\text{Format: } \texttt{<type>(<scope>): <subject>}$$
 * Never execute destructive Git commands (`git reset --hard`, `git push --force`, deleting untracked files) without explicit user approval.
 
 ### 8. Task Board Maintenance (`docs/TASKS.md`)
-* Every time a task or sub-task from `docs/TASKS.md` is completed and verified, the AI **must** update `docs/TASKS.md`:
+* Every time a task or sub-task from `docs/TASKS.md` is completed and verified, the AI **must** update `docs/TASKS.md` **before committing**:
   * Change `[ ]` to `[x]`.
-  * Fill in the corresponding Git commit hash in the `Commit` column.
-  * Update the completion progress counter at the top of the file (e.g. `1 / 41 Selesai`).
+  * Fill in the completion date (`YYYY-MM-DD`) in the `Selesai` column.
+  * Update the completion progress counter at the top of the file (e.g. `1 / 47 Selesai`).
+* Commit the task's code changes **together with `docs/TASKS.md` in a single atomic commit**. The commit message must concisely represent the task itself following Conventional Commits **without** including the ticket ID (e.g., use `chore(env): configure MySQL 8.0 database connection`, NOT `chore(env): configure MySQL [SETUP-002]`).
