@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 1 / 47 Selesai (2%)
+* **Status Progres**: 2 / 47 Selesai (4%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -26,7 +26,7 @@
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
 | [x] | `SETUP-001` | Inisialisasi Proyek Laravel 13 & Git | Project Laravel 13 berhasil dibuat, Git repo tetap terjaga tanpa menimpa `docs/`. | 2026-11-10 |
-| [ ] | `SETUP-002` | Konfigurasi `.env` & Koneksi MySQL 8.0 | Koneksi ke database `tracking_finance` lokal berhasil (`php artisan db:show`). | - |
+| [x] | `SETUP-002` | Konfigurasi `.env` & Koneksi MySQL 8.0 | Koneksi ke database `tracking_finance` lokal berhasil (`php artisan db:show`). | 2026-11-10 |
 | [ ] | `SETUP-003` | Setup Tailwind CSS v4.3 via `@tailwindcss/vite` | Asset Vite berhasil dikompilasi dengan Tailwind CSS v4 (`npm run build`). | - |
 | [ ] | `SETUP-004` | Setup Alpine.js & Layout Dasar | Alpine.js aktif di `resources/js/app.js` dan layout dasar Mobile-First Blade siap. | - |
 
