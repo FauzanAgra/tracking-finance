@@ -1,7 +1,7 @@
 # Entity Relationship Diagram (ERD) & Database Schema
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
-* **Versi Dokumen**: 1.1.0
+* **Versi Dokumen**: 1.2.0
 * **RDBMS**: MySQL 8.0.x (Local WSL: 8.0.46)
 * **Framework / ORM**: Laravel 13 (PHP 8.4) / Eloquent
 * **Dokumentasi Terkait**:
@@ -60,6 +60,7 @@ erDiagram
         string account_number
         string color
         string icon
+        boolean is_default
         boolean is_active
         timestamp created_at
         timestamp updated_at
@@ -112,6 +113,7 @@ erDiagram
         string type
         string currency
         decimal total_amount
+        decimal written_off_amount
         date issue_date
         date due_date
         string status
@@ -139,6 +141,7 @@ erDiagram
         string asset_type
         string currency
         decimal current_price
+        boolean is_manual_price
         timestamp last_price_updated_at
         timestamp created_at
         timestamp updated_at
@@ -233,6 +236,7 @@ erDiagram
 | `account_number` | VARCHAR(50) | Nullable | Nomor rekening / nomor kartu |
 | `color` | VARCHAR(20) | Default: '#3B82F6' | Warna badge di UI Tailwind |
 | `icon` | VARCHAR(50) | Default: 'wallet' | Identifier icon (Heroicons/Lucide) |
+| `is_default` | BOOLEAN | Default: false | Dompet default otomatis saat catat transaksi |
 | `is_active` | BOOLEAN | Default: true | Status aktif dompet |
 
 ---
@@ -290,9 +294,10 @@ erDiagram
 | `type` | ENUM | Not Null | `'receivable'` (piutang kita), `'payable'` (utang kita) |
 | `currency` | VARCHAR(10) | Default: 'IDR' | Mata uang pinjaman |
 | `total_amount` | DECIMAL(15,2) | Not Null | Total pokok pinjaman |
+| `written_off_amount` | DECIMAL(15,2) | Default: 0 | Nominal sisa yang diikhlaskan/diimpaskan |
 | `issue_date` | DATE | Not Null | Tanggal uang dipinjamkan |
 | `due_date` | DATE | Nullable | Tenggat waktu pengembalian |
-| `status` | ENUM | Default: `'unpaid'` | `'unpaid'`, `'partially_paid'`, `'paid'` |
+| `status` | ENUM | Default: `'unpaid'` | `'unpaid'`, `'partially_paid'`, `'paid'`, `'written_off'` |
 | `notes` | TEXT | Nullable | Catatan perjanjian |
 
 #### Tabel `debt_payments`
@@ -317,7 +322,8 @@ erDiagram
 | `name` | VARCHAR(150) | Not Null | Nama aset: Bank Central Asia, Bitcoin |
 | `asset_type` | ENUM | Not Null | `'idx_stock'`, `'us_stock'`, `'crypto'` |
 | `currency` | VARCHAR(10) | Not Null | `'IDR'`, `'USD'`, `'USDT'` |
-| `current_price` | DECIMAL(18,6) | Default: 0 | Harga pasar terakhir yang diambil dari API |
+| `current_price` | DECIMAL(18,6) | Default: 0 | Harga pasar terakhir yang diambil dari API atau manual |
+| `is_manual_price` | BOOLEAN | Default: false | Penanda jika harga diisi secara manual sebagai fallback |
 | `last_price_updated_at` | TIMESTAMP | Nullable | Waktu terakhir refresh harga pasar |
 
 #### Tabel `investment_transactions`

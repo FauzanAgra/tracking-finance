@@ -1,8 +1,8 @@
 # Product Requirement Document (PRD)
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
-* **Versi Dokumen**: 1.1.0
-* **Status**: Disetujui
+* **Versi Dokumen**: 1.2.0
+* **Status**: Disetujui (Updated: Fast Input Default, Debt Write-off, Manual Price Override, & 3-Wave Roadmap)
 * **Tech Stack**: Laravel 13, Tailwind CSS v4.3, Alpine.js, PHP 8.4, MySQL 8.0
 * **Dokumentasi Terkait**:
   - [ERD & Database Schema](ERD.md)
@@ -34,6 +34,9 @@ Aplikasi ini mendukung **Multi-Currency** (IDR, USD, USDT) dengan fitur konversi
        - Pengguna memasukkan nominal keluar (contoh: `Rp 500.000`) dan nominal masuk (contoh: `31.64 USDT`).
        - Sistem mencatat nilai kurs transaksi saat itu: $\text{Exchange Rate} = 500.000 / 31.64 = \text{Rp } 15.802,78/\text{USDT}$.
        - Saldo BCA terpotong Rp 500.000, saldo Binance bertambah 31.64 USDT.
+  4. **Smart Default & Fast Input (Anti Input Friction)**:
+     - Pengguna dapat menandai satu dompet sebagai **Dompet Utama/Default** (`is_default`).
+     - Form tambah transaksi otomatis mengisi **Tanggal = Hari Ini**, memilih **Dompet Default**, dan mengizinkan **Catatan/Description opsional** agar pencatatan harian selesai dalam $\le 3$ detik.
 
 ### Modul 2: Budgeting Bulanan (Pengawasan Anggaran)
 * **User Story**: Sebagai pengguna, saya ingin membatasi pengeluaran bulanan per kategori (misal: budget Makan max Rp 1.500.000/bulan) agar tidak boros.
@@ -54,10 +57,11 @@ Aplikasi ini mendukung **Multi-Currency** (IDR, USD, USDT) dengan fitur konversi
   2. **Pencatatan Cicilan / Pelunasan**:
      - Setiap ada cicilan pembayaran, dicatat di tabel `debt_payments`.
      - Pengguna menentukan: Jumlah bayar, tanggal bayar, dan **ke dompet mana uang tersebut masuk/keluar** (contoh: Jamal bayar Rp 200.000 Cash $\rightarrow$ masuk dompet Cash; Sabtu bayar Rp 100.000 transfer $\rightarrow$ masuk dompet BCA).
-  3. **Status Otomatis**:
+  3. **Status Otomatis & Write-Off ("Ikhlaskan Sisa Utang")**:
      - `unpaid`: Belum ada pembayaran sama sekali.
      - `partially_paid`: Sudah ada pembayaran, namun total cicilan < total utang.
      - `paid`: Total cicilan $\ge$ total utang (Lunas).
+     - `written_off`: Status khusus saat sisa utang/piutang diikhlaskan atau dianggap impas (misal sisa Rp 50.000 diikhlaskan). Sisa nominal tersimpan di `written_off_amount` dan dapat dicatat sebagai beban/sedekah tanpa merusak saldo dompet riil.
 
 ### Modul 4: Portfolio Investasi Multi-Aset (Saham IDX, Saham US, Crypto & DCA)
 * **User Story**: Sebagai investor, saya ingin mencatat pembelian aset menggunakan saldo dari dompet yang relevan, menghitung harga rata-rata (*Average Down*), serta melihat keuntungan/kerugian (*floating profit/loss*) berdasarkan harga pasar terkini dan kurs Dollar.
@@ -66,8 +70,9 @@ Aplikasi ini mendukung **Multi-Currency** (IDR, USD, USDT) dengan fitur konversi
      - `idx_stock` (Saham Indonesia): Input dalam satuan **Lot**. Sistem otomatis mengalikan dengan 100 untuk mendapatkan jumlah lembar ($1\text{ Lot} = 100\text{ Lembar}$). Mata uang: `IDR`.
      - `us_stock` (Saham AS): Input dalam lembar / lembar fraksional (misal: `0.5 AAPL`). Mata uang: `USD`.
      - `crypto`: Input dalam koin/token (misal: `0.0035 BTC`). Mata uang: `USDT` atau `USD`.
-  2. **Sumber Dana Transaksi**:
+  2. **Sumber Dana Transaksi & Opsi Fee Broker**:
      - Pembelian aset ditarik dari dompet dengan mata uang yang sesuai (misal: Beli BTC memotong saldo dompet `Binance USDT`, beli AAPL memotong dompet `Gotrade USD`, beli BBCA memotong dompet `RDN IDR`).
+     - Form beli/jual mendukung **opsi toggle fee broker otomatis** (misal default $0.15\%$ beli / $0.25\%$ jual untuk IDX) atau input manual, sehingga pengguna tidak perlu menghitung manual dengan kalkulator.
   3. **Perhitungan Average Down (Weighted Average Cost)**:
      Setiap transaksi beli baru:
      $$\text{New Average Price} = \frac{(\text{Qty Lama} \times \text{Avg Lama}) + (\text{Qty Baru} \times \text{Harga Beli Baru}) + \text{Fee}}{\text{Qty Lama} + \text{Qty Baru}}$$
@@ -76,10 +81,11 @@ Aplikasi ini mendukung **Multi-Currency** (IDR, USD, USDT) dengan fitur konversi
      $$\text{Total Modal Investasi} = \text{Total Qty Tersisa} \times \text{Average Price}$$
      $$\text{Unrealized PnL (Nominal)} = \text{Market Value} - \text{Total Modal Investasi}$$
      $$\text{Unrealized PnL (\%)} = \left(\frac{\text{Unrealized PnL}}{\text{Total Modal Investasi}}\right) \times 100\%$$
-  5. **Pembaruan Harga Pasar**:
+  5. **Pembaruan Harga Pasar & Manual Price Override**:
      - Crypto diambil via **CoinGecko API** (Free Tier).
      - Saham US & IDX diambil via **Yahoo Finance API** (Ticker `.JK` untuk IDX).
      - Tombol manual *"🔄 Refresh Harga"* di dashboard, plus cron otomatis sore hari.
+     - **Fallback Wajib (Manual Price Override)**: Jika API eksternal gagal, limit habis, atau aset tidak terdaftar di API, pengguna tetap dapat mengklik **"Edit Harga Manual"** (`is_manual_price`) agar aplikasi 100% tetap berjalan lancar.
 
 ### Modul 5: Financial Goals / Wishlist (Target Menabung)
 * **User Story**: Sebagai pengguna, saya ingin membuat target tabungan untuk barang yang ingin saya beli (misal: Laptop Baru Rp 18.000.000) dan menyisihkan uang dari dompet saya secara bertahap.
@@ -99,3 +105,12 @@ Aplikasi ini mendukung **Multi-Currency** (IDR, USD, USDT) dengan fitur konversi
   - Sistem memiliki kurs acuan terkini (misal: $1\text{ USD} = 1\text{ USDT} = \text{Rp } 15.850$).
   - Nilai semua dompet & aset dalam USD/USDT otomatis dikonversi ke IDR:
   $$\text{Net Worth (IDR)} = \sum \text{Dompet IDR} + \left(\sum \text{Dompet Non-IDR} \times \text{Kurs}\right) + \text{Nilai Saham IDX} + \left(\text{Nilai Saham US \& Crypto} \times \text{Kurs}\right) + \sum \text{Piutang} - \sum \text{Utang}$$
+
+---
+
+## 3. Strategi Eksekusi Bertahap (3 Gelombang)
+
+Untuk menjaga fokus dan kualitas pembelajaran, pengembangan dibagi menjadi 3 gelombang prioritas:
+1. **Gelombang 1 — Core Habit (MVP)**: Setup Laravel & MySQL, Autentikasi, Multi-Dompet (IDR + Smart Default), Transaksi Harian (Income/Expense/Transfer), dan Utang-Piutang Cicilan Bertahap (Kasus Jamal + Write-off).
+2. **Gelombang 2 — Wealth & Growth**: Budgeting Bulanan, Konversi Valas (IDR $\rightarrow$ USDT/USD), Financial Goals, dan Portofolio Investasi Multi-Aset (DCA, Lot IDX, US, Crypto, serta Manual Price Fallback + API).
+3. **Gelombang 3 — Magic & Analytics**: AI Receipt Scanner (Gemini Vision API), Dashboard Total Net Worth Global, Grafik Visual (Chart.js), dan Export CSV/Excel.

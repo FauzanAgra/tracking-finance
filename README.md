@@ -28,7 +28,7 @@ Seluruh dokumentasi teknikal dan arsitektur tersimpan rapi di dalam folder [`doc
 3. ⚙️ **[Technical Specification & Architecture (Tech Spec)](docs/TECH_SPEC.md)**  
    *Arsitektur Service Layer, kontrak API pihak ketiga (Gemini, CoinGecko, Yahoo), struktur folder, dan panduan koding.*
 4. 📋 **[Tasks & Implementation Backlog](docs/TASKS.md)**  
-   *Papan tugas terstruktur (41 tiket) lengkap dengan kriteria penerimaan, checklist, dan riwayat commit.*
+   *Papan tugas terstruktur (47 tiket dalam 3 Gelombang) lengkap dengan kriteria penerimaan, checklist, dan riwayat commit.*
 
 ---
 
