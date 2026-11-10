@@ -7,3 +7,8 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Mencegah elemen Alpine.js (seperti modal/dropdown tersembunyi) berkedip saat halaman pertama kali dimuat */
+[x-cloak] {
+    display: none !important;
+}
