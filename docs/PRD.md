@@ -7,6 +7,7 @@
 * **Dokumentasi Terkait**:
   - [ERD & Database Schema](ERD.md)
   - [Technical Specification & Architecture](TECH_SPEC.md)
+  - [Design System & UI Blueprint](DESIGN.md)
   - [Tasks & Backlog Board](TASKS.md)
 
 ---

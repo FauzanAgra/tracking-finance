@@ -7,6 +7,7 @@
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
   - [Tech Spec & Architecture](TECH_SPEC.md)
+  - [Design System & UI Blueprint](DESIGN.md)
 
 ---
 
@@ -14,7 +15,7 @@
 1. Setiap kali suatu sub-tugas selesai dikerjakan dan diverifikasi, **sebelum melakukan commit**, ganti tanda `[ ]` menjadi `[x]` dan isi tanggal selesai pada kolom `Selesai` (format: `YYYY-MM-DD`).
 2. Gabungkan perubahan `docs/TASKS.md` bersama file kode tugas tersebut dalam **1 commit tunggal** (*single atomic commit*).
 3. Seluruh commit wajib menggunakan format Conventional Commits: `<type>(<scope>): <subject>` yang mewakili nama tugasnya (tanpa mencantumkan ID tiket di pesan commit).
-4. **Catatan UI/UX**: Untuk tampilan antarmuka kustom Blade + Tailwind CSS pada fitur utama, kita menunggu referensi desain final / hasil Google Stitch sebelum memoles tampilan, sementara fondasi proyek dan database disiapkan bertahap (*step-by-step*).
+4. **Catatan UI/UX**: Seluruh implementasi tampilan Blade + Tailwind CSS v4 wajib mematuhi token warna Dual Mode, tata letak Mobile-First Adaptif, dan blueprint komponen di [docs/DESIGN.md](DESIGN.md) serta referensi visual di [docs/ref_design/](ref_design/).
 
 ---
 

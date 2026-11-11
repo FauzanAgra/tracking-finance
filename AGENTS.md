@@ -11,6 +11,7 @@ Before executing any task, always read the following documentation files in the 
 1. `docs/PRD.md` — Product Requirement Document (Features, business rules, formulas for DCA, debt installments, and FX conversion).
 2. `docs/ERD.md` — Complete Entity Relationship Diagram & Data Dictionary for 12 MySQL tables.
 3. `docs/TECH_SPEC.md` — Technical Specification (Controller-Service-Model architecture, third-party API contracts, and conventions).
+4. `docs/DESIGN.md` — Official Design System (Mobile-First Adaptif layout, Dual Mode Light/Dark COINEST palette, Bento geometry, and Blade component blueprints based on `docs/ref_design/`).
 
 ---
 

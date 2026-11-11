@@ -6,6 +6,7 @@
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements)](PRD.md)
   - [ERD (Database Schema & Dictionary)](ERD.md)
+  - [Design System & UI Blueprint](DESIGN.md)
   - [Tasks & Backlog Board](TASKS.md)
 
 ---
@@ -135,10 +136,14 @@ tracking-finance/
 ├── database/
 │   ├── migrations/              # 12 migrasi tabel database
 │   └── seeders/                 # Default categories (Makanan, Gaji, dll.)
-├── docs/                        # Dokumentasi Arsitektur, PRD, dan ERD
+├── docs/                        # Dokumentasi Arsitektur, PRD, ERD, & Design
 │   ├── PRD.md
 │   ├── ERD.md
-│   └── TECH_SPEC.md
+│   ├── TECH_SPEC.md
+│   ├── DESIGN.md
+│   ├── STITCH_PROMPTS.md
+│   ├── TASKS.md
+│   └── ref_design/
 ├── resources/
 │   ├── css/
 │   │   └── app.css              # Entrypoint Tailwind CSS

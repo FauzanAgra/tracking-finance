@@ -4,6 +4,7 @@ Please read [AGENTS.md](AGENTS.md) and the comprehensive documentation in [docs/
 - [PRD](docs/PRD.md)
 - [ERD](docs/ERD.md)
 - [Tech Spec](docs/TECH_SPEC.md)
+- [Design System](docs/DESIGN.md)
 - [Tasks & Backlog](docs/TASKS.md)
 
 Strict rules:
