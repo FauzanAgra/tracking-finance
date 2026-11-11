@@ -1,31 +1,34 @@
 # Design System & UI/UX Blueprint (`DESIGN.md`)
 ## Project: Tracking Finance (Personal Wealth, Cashflow & Investment Hub)
 
-* **Versi Dokumen**: 1.0.0
-* **Status**: Disetujui (Mobile-First Adaptif + Dual Mode Light/Dark)
+* **Versi Dokumen**: 1.1.0
+* **Status**: Disetujui (Mobile-First Priority + Dual Mode Light/Dark — Selaras Export Google Stitch)
 * **Stack UI**: Laravel Blade + Tailwind CSS v4.3 (`@tailwindcss/vite`) + Alpine.js v3 + Chart.js v4
 * **Referensi Visual**:
   - [Ref 1: Mobile Bento Pastel UI](ref_design/ref_design_1.jpg) *(Tata letak bento mobile, angka KPI besar, floating bottom dock, avatar kontak)*
   - [Ref 2: COINEST Fintech Dashboard](ref_design/ref_design_2.jpg) *(Palet warna Forest & Mint Green, kartu dompet Visa/Mastercard, Finance Score bar, Expense Breakdown ring, Cashflow spline chart, Saving Plans, ikon outline bersih)*
+  - [Peta Layar Export Google Stitch](STITCH_SCREEN_MAP.md) *(20 pasang layar Light/Dark Mode Mobile di `docs/stitch_export/`)*
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements)](PRD.md)
   - [ERD (Database Schema & Dictionary)](ERD.md)
   - [Technical Specification & Architecture](TECH_SPEC.md)
   - [Google Stitch Master Prompts](STITCH_PROMPTS.md)
+  - [Stitch Screen Map](STITCH_SCREEN_MAP.md)
   - [Tasks & Backlog Board](TASKS.md)
 
 ---
 
 ## 1. Filosofi Desain & Strategi Responsif
 
-Aplikasi ini dirancang dengan prinsip **Mobile-First Adaptif** untuk mencerminkan kebiasaan penggunaan nyata:
-1. **80% Input Cepat di Smartphone (`390px+`)**:
+Aplikasi ini dirancang dengan prinsip **Mobile-First First** (utamakan UI Mobile selesai & nyaman dipakai harian lebih dulu, lalu *refinement* Desktop dilakukan bertahap):
+1. **Fase Eksekusi Utama — Smartphone (`390px+`)**:
    - Pencatatan pengeluaran harian, foto struk belanja, dan pencatatan cicilan utang teman (*kasus Jamal*) terjadi saat beraktivitas.
-   - Antarmuka mobile memprioritaskan **angka besar yang langsung terbaca sekilas**, tombol ramah jempol (*thumb-zone*), **Bottom Navigation Dock**, dan input transaksi $\le 3$ detik.
-2. **20% Analisis Mendalam di Laptop/Desktop (`md:` / `lg:`)**:
-   - Saat dibuka di layar laptop untuk mengevaluasi portofolio Saham IDX/US/Crypto, budgeting bulanan, atau tren cashflow, tata letak otomatis mengembang menjadi **Left Sidebar + Bento Grid 2–3 Kolom**.
+   - Seluruh 20 pasang halaman/modal dibangun presisi mengikuti export **Google Stitch** (`max-w-md mx-auto` rapi bila diakses dari browser desktop selama fase awal).
+   - Memprioritaskan **angka besar yang langsung terbaca sekilas**, tombol ramah jempol (*thumb-zone*), **Floating Bottom Navigation Dock**, dan input transaksi $\le 3$ detik.
+2. **Fase Ekspansi Bertahap — Desktop (`md:` / `lg:`)**:
+   - Setelah seluruh tampilan & alur fitur mobile berfungsi solid, tata letak layar lebar (`1280px+`) dapat ditingkatkan secara bertahap menjadi **Left Sidebar (`250px`) + Bento Grid 2–3 Kolom**.
 3. **Dual Mode Theme (Light & Dark Mode)**:
-   - Mendukung pergantian tema **Light Mode** dan **Dark Mode** secara instan dari menu profil/header menggunakan Alpine.js + penyimpanan preferensi browser (`localStorage`).
+   - Mendukung pergantian tema **Light Mode (COINEST)** dan **Dark Mode (Obsidian Pine & Mint)** secara instan melalui class `.dark` di `<html>` dan penyimpanan `localStorage` (`tf_theme`).
 
 ---
 
@@ -88,18 +91,55 @@ Di Tailwind CSS v4, mode `dark:` secara default membaca setting OS (*system pref
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
 
-    /* Brand Accent & Forest Tokens untuk dipakai langsung sebagai class Tailwind */
-    --color-forest-900: #122D21;
-    --color-forest-800: #1B4332;
-    --color-forest-700: #23533F;
-    --color-mint-300: #BDF08E;
-    --color-mint-200: #D7F7B8;
-    --color-mint-100: #EAF6E2;
-    --color-sage-50: #F5F8F4;
-    --color-sage-100: #EEF4EC;
-    --color-sage-200: #E3ECE1;
+    /* Light Mode (COINEST / Stitch Tokens) */
+    --color-canvas-base: #F5F8F4;
+    --color-surface-card: #FFFFFF;
+    --color-surface-tint: #EFF6EC;
+    --color-border-subtle: #E3ECE1;
+    --color-forest-primary: #1B4332;
+    --color-forest-deep: #122D21;
+    --color-accent-lime: #BDF08E;
+    --color-accent-lime-soft: #E3F8CE;
+    --color-text-primary: #14241D;
+    --color-text-secondary: #64746B;
+    --color-text-muted: #8FA096;
+
+    /* Dark Mode (Obsidian Pine & Mint / Stitch Tokens) */
+    --color-dark-canvas: #0A110E;
+    --color-dark-sidebar: #0F1915;
+    --color-dark-surface: #14211B;
+    --color-dark-surface-tint: #1B2D24;
+    --color-dark-border: #243B30;
+    --color-dark-forest: #1E4D38;
+    --color-dark-lime: #A8E874;
+    --color-dark-text-primary: #F1F6F3;
+    --color-dark-text-secondary: #96ABA0;
+    --color-dark-text-muted: #647A6E;
+
+    /* Semantic Status Tokens */
+    --color-semantic-profit-bg: #DCF7C6;
+    --color-semantic-profit-text: #16422E;
+    --color-semantic-loss-bg: #FFE4E6;
+    --color-semantic-loss-text: #BE123C;
+    --color-semantic-warning-bg: #FEF3C7;
+    --color-semantic-warning-text: #B45309;
+    --color-semantic-info-bg: #E8EFEA;
+    --color-semantic-info-text: #47584F;
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.material-symbols-outlined.fill-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
 }
 
 [x-cloak] {
@@ -111,7 +151,7 @@ Di Tailwind CSS v4, mode `dark:` secara default membaca setting OS (*system pref
 
 ## 3. Tipografi & Aturan Angka Finansial
 
-* **Font Utama**: `Instrument Sans` *(sudah terintegrasi otomatis melalui Laravel 13 + Vite)*.
+* **Font Utama**: **`Space Grotesk`** (`400, 500, 600, 700` — di-bundle otomatis via `laravel-vite-plugin/fonts` `@fonts`, 100% selaras export Google Stitch).
 * **Aturan Emas Angka (`tabular-nums`)**:
   Setiap angka uang, persentase profit/loss, jumlah lot, harga saham/crypto, dan saldo **wajib** memakai utility Tailwind `tabular-nums` (`font-variant-numeric: tabular-nums`) agar lebar setiap digit seragam dan kolom angka sejajar rapi saat dibandingkan vertikal.
 
@@ -231,9 +271,9 @@ Komponen favorit untuk memantau **kesehatan anggaran bulanan & rasio tabungan**:
 
 ## 6. Ikonografi & Micro-Interactions (Alpine.js)
 
-### 6.1 Gaya Ikon (`ref_design_2.jpg`)
-* Gunakan ikon vektor **Outline (Stroke-based)** berujung membulat (**Lucide Icons** / **Heroicons Outline**, `stroke-width="1.75"`).
-* Ikon kategori transaksi dan aktivitas dibungkus dalam kotak membulat lembut (`w-10 h-10 rounded-xl bg-[#EFF6EC] dark:bg-[#1B2D24] text-[#1B4332] dark:text-[#A8E874] flex items-center justify-center`).
+### 6.1 Gaya Ikon (100% Selaras Export Google Stitch)
+* Gunakan **Google Material Symbols Outlined** (`wght,FILL@100..700,0..1`, default `FILL: 0, wght: 450`). Gunakan modifier `.fill-icon` (`FILL: 1`) khusus untuk ikon aktif di Bottom Navigation Dock atau badge tertentu.
+* Ikon kategori transaksi dan aktivitas dibungkus dalam kotak membulat lembut (`w-10 h-10 rounded-xl bg-surface-tint dark:bg-dark-surface-tint text-forest-primary dark:text-dark-lime flex items-center justify-center`).
 
 ### 6.2 Pola Interaksi Alpine.js
 * **Mobile Bottom Sheet vs Desktop Modal**:
@@ -247,7 +287,7 @@ Komponen favorit untuk memantau **kesehatan anggaran bulanan & rasio tabungan**:
 
 Sebelum menyelesaikan tiket apa pun yang menyentuh tampilan (`resources/views/**/*.blade.php`), pastikan 6 poin berikut lolos pemeriksaan:
 1. [ ] **Mobile-First Fit**: Tampil rapi tanpa scroll horizontal pada viewport `390px` (iPhone/Android standar) dengan tombol mudah dijangkau jempol.
-2. [ ] **Desktop Adaptive**: Melebar proporsional pada `1280px+` (Sidebar aktif, Bento Grid terisi seimbang).
+2. [ ] **Desktop Clean Container / Expansion**: Rapi & nyaman dilihat di browser desktop (`max-w-md` terpusat pada tahap Mobile-First, hingga Sidebar + Bento Grid ditambahkan pada tahap ekspansi Desktop).
 3. [ ] **Dual Mode Contrast**: Terbaca jelas baik di **Light Mode** maupun saat class `.dark` aktif di `<html>`.
 4. [ ] **Tabular Numerals**: Semua angka saldo, persentase, lot, dan harga menggunakan `tabular-nums`.
 5. [ ] **Zero Out-Of-Topic UI**: Tidak menampilkan fitur/widget fiktif yang tidak ada di `docs/PRD.md`.

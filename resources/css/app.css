@@ -1,11 +1,62 @@
 @import 'tailwindcss';
 
+/* Aktifkan manual dark mode menggunakan class .dark di tag <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* === Light Mode (COINEST / Stitch Tokens) === */
+    --color-canvas-base: #F5F8F4;
+    --color-surface-card: #FFFFFF;
+    --color-surface-tint: #EFF6EC;
+    --color-border-subtle: #E3ECE1;
+    --color-forest-primary: #1B4332;
+    --color-forest-deep: #122D21;
+    --color-accent-lime: #BDF08E;
+    --color-accent-lime-soft: #E3F8CE;
+    --color-text-primary: #14241D;
+    --color-text-secondary: #64746B;
+    --color-text-muted: #8FA096;
+
+    /* === Dark Mode (Obsidian Pine & Mint / Stitch Tokens) === */
+    --color-dark-canvas: #0A110E;
+    --color-dark-sidebar: #0F1915;
+    --color-dark-surface: #14211B;
+    --color-dark-surface-tint: #1B2D24;
+    --color-dark-border: #243B30;
+    --color-dark-forest: #1E4D38;
+    --color-dark-lime: #A8E874;
+    --color-dark-text-primary: #F1F6F3;
+    --color-dark-text-secondary: #96ABA0;
+    --color-dark-text-muted: #647A6E;
+
+    /* === Semantic Tokens (PRD Business Rules) === */
+    --color-semantic-profit-bg: #DCF7C6;
+    --color-semantic-profit-text: #16422E;
+    --color-semantic-loss-bg: #FFE4E6;
+    --color-semantic-loss-text: #BE123C;
+    --color-semantic-warning-bg: #FEF3C7;
+    --color-semantic-warning-text: #B45309;
+    --color-semantic-info-bg: #E8EFEA;
+    --color-semantic-info-text: #47584F;
+}
+
+/* Google Material Symbols Outlined (100% selaras export Stitch) */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.material-symbols-outlined.fill-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
 }
 
 /* Mencegah elemen Alpine.js (seperti modal/dropdown tersembunyi) berkedip saat halaman pertama kali dimuat */
