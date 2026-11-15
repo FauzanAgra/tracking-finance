@@ -1,30 +1,43 @@
+@props(['title' => config('app.name', 'Tracking Finance')])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <title>{{ $title }} - {{ config('app.name', 'Tracking Finance') }}</title>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    {{-- Sinkronkan preferensi tema sebelum render pertama agar tidak berkedip (anti-FOUC) --}}
+    <script>
+        (function() {
+            const saved = localStorage.getItem('tf_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'dark' || (!saved && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
-        </div>
-    </body>
+    {{-- Google Fonts: Space Grotesk & Material Symbols Outlined --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    {{-- Memuat CSS (Tailwind v4.3) dan JS (Alpine.js) melalui Vite --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body class="bg-canvas-base text-text-primary dark:bg-dark-canvas dark:text-dark-text-primary antialiased min-h-screen flex items-center justify-center p-0 selection:bg-accent-lime selection:text-forest-deep dark:selection:bg-dark-lime dark:selection:text-dark-canvas font-sans text-body-md">
+    {{-- Container Mobile Viewport Target (390px x 844px target Stitch) --}}
+    <div class="w-full max-w-[390px] min-h-screen relative flex flex-col justify-between px-space-md py-space-md mx-auto overflow-hidden">
+        {{ $slot }}
+    </div>
+</body>
+
 </html>

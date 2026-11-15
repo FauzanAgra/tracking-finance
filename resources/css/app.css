@@ -3,63 +3,223 @@
 /* Aktifkan manual dark mode menggunakan class .dark di tag <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
+@source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 
-    /* === Light Mode (COINEST / Stitch Tokens) === */
-    --color-canvas-base: #F5F8F4;
-    --color-surface-card: #FFFFFF;
-    --color-surface-tint: #EFF6EC;
-    --color-border-subtle: #E3ECE1;
-    --color-forest-primary: #1B4332;
-    --color-forest-deep: #122D21;
-    --color-accent-lime: #BDF08E;
-    --color-accent-lime-soft: #E3F8CE;
-    --color-text-primary: #14241D;
-    --color-text-secondary: #64746B;
-    --color-text-muted: #8FA096;
+    /* === Stitch Typography Scales (100% Complete) === */
+    --text-headline-lg: 2.25rem;
+    --text-headline-lg--line-height: 2.75rem;
+    --text-headline-lg--letter-spacing: -0.025em;
+    --text-headline-lg--font-weight: 700;
+    --text-label-xs: 0.6875rem;
+    --text-label-xs--line-height: 0.875rem;
+    --text-label-xs--letter-spacing: 0.025em;
+    --text-label-xs--font-weight: 500;
+    --text-headline-sm: 1.25rem;
+    --text-headline-sm--line-height: 1.75rem;
+    --text-headline-sm--letter-spacing: -0.015em;
+    --text-headline-sm--font-weight: 600;
+    --text-body-md: 0.875rem;
+    --text-body-md--line-height: 1.375rem;
+    --text-body-md--font-weight: 400;
+    --text-body-lg: 1.125rem;
+    --text-body-lg--line-height: 1.75rem;
+    --text-body-lg--font-weight: 400;
+    --text-display-hero: 3rem;
+    --text-display-hero--line-height: 3.5rem;
+    --text-display-hero--letter-spacing: -0.03em;
+    --text-display-hero--font-weight: 700;
+    --text-headline-md: 1.5rem;
+    --text-headline-md--line-height: 2rem;
+    --text-headline-md--letter-spacing: -0.02em;
+    --text-headline-md--font-weight: 600;
+    --text-label-md: 0.75rem;
+    --text-label-md--line-height: 1rem;
+    --text-label-md--letter-spacing: 0.02em;
+    --text-label-md--font-weight: 600;
+    --text-headline-lg-mobile: 1.75rem;
+    --text-headline-lg-mobile--line-height: 2.25rem;
+    --text-headline-lg-mobile--letter-spacing: -0.02em;
+    --text-headline-lg-mobile--font-weight: 700;
+    --text-body-sm: 0.8125rem;
+    --text-body-sm--line-height: 1.25rem;
+    --text-body-sm--font-weight: 500;
+    --text-label-lg: 0.875rem;
+    --text-label-lg--line-height: 1.25rem;
+    --text-label-lg--letter-spacing: 0.01em;
+    --text-label-lg--font-weight: 600;
+    --text-title-md: 1rem;
+    --text-title-md--line-height: 1.5rem;
+    --text-title-md--letter-spacing: -0.01em;
+    --text-title-md--font-weight: 600;
 
-    /* === Dark Mode (Obsidian Pine & Mint / Stitch Tokens) === */
-    --color-dark-canvas: #0A110E;
-    --color-dark-sidebar: #0F1915;
+    /* === Stitch Spacing Tokens (100% Complete) === */
+    --spacing-space-lg: 1.5rem;
+    --spacing-space-xs: 0.25rem;
+    --spacing-space-sm: 0.5rem;
+    --spacing-space-md: 1rem;
+    --spacing-space-xl: 2rem;
+    --spacing-margin: 1rem;
+    --spacing-gutter: 1rem;
+    --spacing-space-2xl: 3rem;
+    --spacing-gutter-desktop: 1.5rem;
+    --spacing-margin-desktop: 2rem;
+
+    /* === Stitch Border Radius (100% Complete) === */
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-full: 9999px;
+    --radius-3xl: 1.5rem;
+    --radius-2xl: 1rem;
+
+    /* === Stitch Color Palette (All 75 Tokens) === */
     --color-dark-surface: #14211B;
-    --color-dark-surface-tint: #1B2D24;
-    --color-dark-border: #243B30;
-    --color-dark-forest: #1E4D38;
-    --color-dark-lime: #A8E874;
-    --color-dark-text-primary: #F1F6F3;
-    --color-dark-text-secondary: #96ABA0;
-    --color-dark-text-muted: #647A6E;
-
-    /* === Semantic Tokens (PRD Business Rules) === */
+    --color-on-primary-fixed: #002114;
+    --color-on-background: #181c1a;
+    --color-accent-lime-soft: #E3F8CE;
     --color-semantic-profit-bg: #DCF7C6;
-    --color-semantic-profit-text: #16422E;
-    --color-semantic-loss-bg: #FFE4E6;
-    --color-semantic-loss-text: #BE123C;
-    --color-semantic-warning-bg: #FEF3C7;
-    --color-semantic-warning-text: #B45309;
-    --color-semantic-info-bg: #E8EFEA;
+    --color-dark-text-muted: #647A6E;
+    --color-on-tertiary-container: #a2a9a0;
+    --color-border-subtle: #E3ECE1;
+    --color-dark-surface-tint: #1B2D24;
+    --color-tertiary-container: #373e37;
+    --color-tertiary: #212822;
+    --color-on-surface: #181c1a;
+    --color-on-error: #ffffff;
+    --color-secondary: #3f6917;
+    --color-inverse-on-surface: #eef2ee;
+    --color-text-primary: #14241D;
+    --color-on-secondary-container: #456f1d;
+    --color-surface-card: #FFFFFF;
+    --color-surface: #f7faf6;
+    --color-surface-container-low: #f1f4f0;
     --color-semantic-info-text: #47584F;
+    --color-canvas-base: #F5F8F4;
+    --color-surface-bright: #f7faf6;
+    --color-on-secondary: #ffffff;
+    --color-inverse-surface: #2d312f;
+    --color-on-error-container: #93000a;
+    --color-semantic-loss-text: #BE123C;
+    --color-surface-dim: #d8dbd7;
+    --color-on-tertiary: #ffffff;
+    --color-on-primary-fixed-variant: #274e3d;
+    --color-surface-variant: #e0e3df;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-tint: #EFF6EC;
+    --color-surface-container-high: #e6e9e5;
+    --color-text-muted: #8FA096;
+    --color-surface-container-highest: #e0e3df;
+    --color-primary-container: #1b4332;
+    --color-inverse-primary: #a5d0b9;
+    --color-error-container: #ffdad6;
+    --color-error: #ba1a1a;
+    --color-accent-lime: #BDF08E;
+    --color-semantic-profit-text: #16422E;
+    --color-dark-lime: #A8E874;
+    --color-background: #f7faf6;
+    --color-outline-variant: #c1c8c2;
+    --color-primary-fixed: #c1ecd4;
+    --color-on-tertiary-fixed-variant: #424942;
+    --color-semantic-info-bg: #E8EFEA;
+    --color-semantic-loss-bg: #FFE4E6;
+    --color-outline: #717973;
+    --color-secondary-container: #bff28f;
+    --color-dark-forest: #1E4D38;
+    --color-forest-primary: #1B4332;
+    --color-tertiary-fixed: #dde5db;
+    --color-on-surface-variant: #414844;
+    --color-dark-sidebar: #0F1915;
+    --color-forest-deep: #122D21;
+    --color-dark-text-primary: #F1F6F3;
+    --color-secondary-fixed: #bff28f;
+    --color-primary: #012d1d;
+    --color-tertiary-fixed-dim: #c1c8bf;
+    --color-on-secondary-fixed: #0d2000;
+    --color-text-secondary: #64746B;
+    --color-on-primary: #ffffff;
+    --color-primary-fixed-dim: #a5d0b9;
+    --color-dark-canvas: #0A110E;
+    --color-dark-text-secondary: #96ABA0;
+    --color-dark-border: #243B30;
+    --color-on-tertiary-fixed: #171d17;
+    --color-semantic-warning-bg: #FEF3C7;
+    --color-secondary-fixed-dim: #a3d576;
+    --color-on-primary-container: #86af99;
+    --color-surface-container: #ecefeb;
+    --color-semantic-warning-text: #B45309;
+    --color-on-secondary-fixed-variant: #295000;
 }
 
-/* Google Material Symbols Outlined (100% selaras export Stitch) */
+/* === Stitch Global Utilities & Custom Styles === */
+
+/* Google Material Symbols Outlined (Mendukung FILL 0 & FILL 1) */
 .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
-    font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
     display: inline-block;
     vertical-align: middle;
-    line-height: 1;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
 }
 
-.material-symbols-outlined.fill-icon {
-    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+.material-symbols-outlined.fill,
+.material-symbols-outlined.fill-icon,
+.material-symbols-outlined.fill-1 {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
-/* Mencegah elemen Alpine.js (seperti modal/dropdown tersembunyi) berkedip saat halaman pertama kali dimuat */
-[x-cloak] {
-    display: none !important;
+/* Tabular Numbers untuk Presisi Angka Finansial */
+.tabular-nums {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbar Utilities untuk Clean Mobile UI */
+.no-scrollbar::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar,
+.custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Custom Checkbox (100% Pixel Match Stitch) */
+.stitch-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-block;
+    vertical-align: middle;
+    background-origin: border-box;
+    user-select: none;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    border-width: 1px;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+}
+
+.stitch-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%231B4332' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.dark .stitch-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23A8E874' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
 }
