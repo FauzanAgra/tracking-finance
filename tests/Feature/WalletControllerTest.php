@@ -31,6 +31,8 @@ class WalletControllerTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('BCA Utama');
+        $response->assertDontSee('modalMode: "create"', false);
+        $response->assertSee("modalMode: 'create'", false);
     }
 
     public function test_authenticated_user_can_create_update_set_default_and_delete_wallet(): void

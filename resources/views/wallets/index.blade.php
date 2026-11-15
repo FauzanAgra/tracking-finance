@@ -3,17 +3,17 @@
         x-data="{
             filterCurrency: 'ALL',
             copiedId: null,
-            modalOpen: @json($errors->any()),
-            modalMode: @json(old('_method') === 'PUT' ? 'edit' : 'create'),
-            editWalletId: @json(old('_wallet_id')),
+            modalOpen: @js($errors->any()),
+            modalMode: @js(old('_method') === 'PUT' ? 'edit' : 'create'),
+            editWalletId: @js(old('_wallet_id')),
             form: {
-                name: @json(old('name', '')),
-                type: @json(old('type', 'bank')),
-                currency: @json(old('currency', 'IDR')),
-                balance: @json(old('balance', '0')),
-                account_number: @json(old('account_number', '')),
-                color: @json(old('color', '#1E4D38')),
-                is_default: @json((bool) old('is_default', false)),
+                name: @js(old('name', '')),
+                type: @js(old('type', 'bank')),
+                currency: @js(old('currency', 'IDR')),
+                balance: @js(old('balance', '0')),
+                account_number: @js(old('account_number', '')),
+                color: @js(old('color', '#1E4D38')),
+                is_default: @js((bool) old('is_default', false)),
             },
             openCreate() {
                 this.modalMode = 'create';
@@ -308,7 +308,7 @@
                                         <div class="flex items-center gap-1.5">
                                             <button
                                                 type="button"
-                                                @click='openEdit(@json($walletPayload))'
+                                                @click="openEdit(@js($walletPayload))"
                                                 aria-label="Edit {{ $wallet->name }}"
                                                 class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white active:scale-95 transition-all cursor-pointer"
                                             >
@@ -352,7 +352,7 @@
                                     <div class="flex items-center gap-1.5">
                                         <button
                                             type="button"
-                                            @click='openEdit(@json($walletPayload))'
+                                            @click="openEdit(@js($walletPayload))"
                                             aria-label="Edit {{ $wallet->name }}"
                                             class="w-7 h-7 rounded-full bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-forest-primary dark:hover:text-dark-lime active:scale-95 transition-all cursor-pointer"
                                         >
