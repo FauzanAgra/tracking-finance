@@ -47,4 +47,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wallet::class);
     }
+
+    /**
+     * Get the categories owned by the user.
+     */
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
 }
