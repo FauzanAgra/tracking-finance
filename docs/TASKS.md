@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 12 / 47 Selesai (26%)
+* **Status Progres**: 15 / 47 Selesai (32%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -53,9 +53,9 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `WALL-001` | Service Layer: `WalletService` | Logika mutasi saldo atomik (`DB::transaction`) dan validasi kecukupan saldo. | - |
-| [ ] | `WALL-002` | CRUD & Tampilan Kartu Dompet | Daftar dompet beserta fitur set **Dompet Default (`is_default`)** untuk input cepat. | - |
-| [ ] | `WALL-003` | Form Tambah / Edit Dompet | Form modal Alpine.js untuk tambah/edit dompet (nama, tipe, warna, saldo awal). | - |
+| [x] | `WALL-001` | Service Layer: `WalletService` | Logika mutasi saldo atomik (`DB::transaction`) dan validasi kecukupan saldo. | 2026-11-15 |
+| [x] | `WALL-002` | CRUD & Tampilan Kartu Dompet | Daftar dompet beserta fitur set **Dompet Default (`is_default`)** untuk input cepat. | 2026-11-15 |
+| [x] | `WALL-003` | Form Tambah / Edit Dompet | Form modal Alpine.js untuk tambah/edit dompet (nama, tipe, warna, saldo awal). | 2026-11-15 |
 
 ## 💸 Fase 4A: Arus Kas & Transaksi Harian (`TXN`)
 
