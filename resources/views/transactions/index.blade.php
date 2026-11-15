@@ -47,7 +47,13 @@
             <div class="flex items-center justify-between">
                 <h1 class="text-headline-sm font-bold text-text-primary dark:text-dark-text-primary tracking-tight">Riwayat Transaksi</h1>
 
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5">
+                    <a
+                        href="{{ route('debts.index') }}"
+                        class="px-2.5 py-1.5 rounded-full bg-surface-card dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border text-label-md font-semibold text-text-secondary dark:text-dark-text-secondary hover:text-forest-primary dark:hover:text-dark-lime transition-colors"
+                    >
+                        Utang
+                    </a>
                     <a
                         href="{{ route('categories.index') }}"
                         class="px-2.5 py-1.5 rounded-full bg-surface-card dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border text-label-md font-semibold text-text-secondary dark:text-dark-text-secondary hover:text-forest-primary dark:hover:text-dark-lime transition-colors"

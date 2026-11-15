@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 18 / 47 Selesai (38%)
+* **Status Progres**: 23 / 47 Selesai (49%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -69,11 +69,11 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `DEBT-001` | Service Layer: `DebtService` | Logika cicilan, auto-update saldo dompet penerima, dan update status `paid`. | - |
-| [ ] | `DEBT-002` | Daftar Utang & Piutang | Tampilan daftar orang yang berutang/kita utangi dengan badge status pembayaran. | - |
-| [ ] | `DEBT-003` | Modal Input Pembayaran Cicilan | Form pembayaran bertahap (pilih tanggal, nominal, dan dompet masuk/keluar). | - |
-| [ ] | `DEBT-004` | Log Histori Pembayaran per Orang | Tampilan rincian histori cicilan (contoh: Jumat 200k Cash, Sabtu 100k BCA). | - |
-| [ ] | `DEBT-005` | Fitur "Ikhlaskan Sisa Utang" (Write-Off) | Tombol untuk menandai sisa pinjaman dianggap impas (`written_off`) secara bersih. | - |
+| [x] | `DEBT-001` | Service Layer: `DebtService` | Logika cicilan, auto-update saldo dompet penerima, dan update status `paid`. | 2026-11-16 |
+| [x] | `DEBT-002` | Daftar Utang & Piutang | Tampilan daftar orang yang berutang/kita utangi dengan badge status pembayaran. | 2026-11-16 |
+| [x] | `DEBT-003` | Modal Input Pembayaran Cicilan | Form pembayaran bertahap (pilih tanggal, nominal, dan dompet masuk/keluar). | 2026-11-16 |
+| [x] | `DEBT-004` | Log Histori Pembayaran per Orang | Tampilan rincian histori cicilan (contoh: Jumat 200k Cash, Sabtu 100k BCA). | 2026-11-16 |
+| [x] | `DEBT-005` | Fitur "Ikhlaskan Sisa Utang" (Write-Off) | Tombol untuk menandai sisa pinjaman dianggap impas (`written_off`) secara bersih. | 2026-11-16 |
 
 ---
 

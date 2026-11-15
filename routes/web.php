@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DebtController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WalletController;
@@ -29,6 +30,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
     Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+
+    Route::get('/debts', [DebtController::class, 'index'])->name('debts.index');
+    Route::post('/debts', [DebtController::class, 'store'])->name('debts.store');
+    Route::post('/debts/{debt}/payments', [DebtController::class, 'storePayment'])->name('debts.payments.store');
+    Route::patch('/debts/{debt}/write-off', [DebtController::class, 'writeOff'])->name('debts.write-off');
+    Route::delete('/debts/{debt}', [DebtController::class, 'destroy'])->name('debts.destroy');
 });
 
 Route::middleware('auth')->group(function () {
