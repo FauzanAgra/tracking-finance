@@ -22,18 +22,18 @@
         <span class="text-[10px] font-semibold">Dompet</span>
     </a>
 
-    {{-- 3. Center Quick Action Placeholder (Akan dihubungkan ke Modal Catat Cepat di TXN-002) --}}
+    {{-- 3. Center Quick Action (Catat Cepat TXN-002) --}}
     <a
-        href="{{ route('wallets.index') }}"
+        href="{{ route('transactions.index', ['quick' => 1]) }}"
         title="Catat Cepat"
         class="w-11 h-11 -mt-5 rounded-full bg-forest-primary dark:bg-dark-lime text-white dark:text-dark-canvas shadow-lg shadow-forest-primary/25 dark:shadow-dark-lime/25 flex items-center justify-center active:scale-95 transition-transform"
     >
         <span class="material-symbols-outlined text-[24px]">add</span>
     </a>
 
-    {{-- 4. Riwayat / Transaksi (Placeholder sampai TXN-004) --}}
+    {{-- 4. Riwayat / Transaksi (TXN-004) --}}
     <a
-        href="{{ route('dashboard') }}"
+        href="{{ route('transactions.index') }}"
         class="flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl transition-colors {{ $active === 'transactions' ? 'text-forest-primary dark:text-dark-lime' : 'text-text-muted dark:text-dark-text-muted hover:text-text-primary dark:hover:text-dark-text-primary' }}"
     >
         <span class="material-symbols-outlined text-[22px] {{ $active === 'transactions' ? 'fill-1' : '' }}">receipt_long</span>

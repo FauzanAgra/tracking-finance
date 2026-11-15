@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/wallets/{wallet}', [WalletController::class, 'update'])->name('wallets.update');
     Route::patch('/wallets/{wallet}/default', [WalletController::class, 'setDefault'])->name('wallets.set-default');
     Route::delete('/wallets/{wallet}', [WalletController::class, 'destroy'])->name('wallets.destroy');
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
+    Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 });
 
 Route::middleware('auth')->group(function () {

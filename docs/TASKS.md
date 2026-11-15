@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 15 / 47 Selesai (32%)
+* **Status Progres**: 18 / 47 Selesai (38%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -61,9 +61,9 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `TXN-001` | CRUD Kategori Pengeluaran & Pemasukan | Kelola kategori dengan warna badge dan icon yang bisa disesuaikan pengguna. | - |
-| [ ] | `TXN-002` | Form Input Transaksi Cepat (Smart Default) | Input income/expense/transfer (same-currency) dengan default tanggal hari ini & dompet utama. | - |
-| [ ] | `TXN-004` | Tabel Riwayat Transaksi & Filter | Daftar riwayat transaksi mobile-friendly dengan pencarian, filter tanggal, dompet, & kategori. | - |
+| [x] | `TXN-001` | CRUD Kategori Pengeluaran & Pemasukan | Kelola kategori dengan warna badge dan icon yang bisa disesuaikan pengguna. | 2026-11-16 |
+| [x] | `TXN-002` | Form Input Transaksi Cepat (Smart Default) | Input income/expense/transfer (same-currency) dengan default tanggal hari ini & dompet utama. | 2026-11-16 |
+| [x] | `TXN-004` | Tabel Riwayat Transaksi & Filter | Daftar riwayat transaksi mobile-friendly dengan pencarian, filter tanggal, dompet, & kategori. | 2026-11-16 |
 
 ## 🤝 Fase 5: Utang & Piutang Cicilan Bertahap - Kasus Jamal (`DEBT`)
 
