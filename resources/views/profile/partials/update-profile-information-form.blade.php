@@ -47,6 +47,19 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="base_currency" :value="__('Mata Uang Utama (Base Currency)')" />
+            <select
+                id="base_currency"
+                name="base_currency"
+                class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+            >
+                <option value="IDR" @selected(old('base_currency', $user->base_currency ?? 'IDR') === 'IDR')>IDR (Indonesian Rupiah)</option>
+                <option value="USD" @selected(old('base_currency', $user->base_currency ?? 'IDR') === 'USD')>USD (US Dollar)</option>
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('base_currency')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

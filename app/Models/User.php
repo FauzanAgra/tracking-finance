@@ -10,12 +10,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'base_currency'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * Default attribute values for newly instantiated User models.
+     *
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'base_currency' => 'IDR',
+    ];
 
     /**
      * Get the attributes that should be cast.

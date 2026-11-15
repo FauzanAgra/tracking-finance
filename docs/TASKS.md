@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 6 / 47 Selesai (13%)
+* **Status Progres**: 7 / 47 Selesai (15%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -37,7 +37,7 @@
 |:---:|---|---|---|:---:|
 | [x] | `AUTH-001` | Instalasi Laravel Breeze (Blade Stack) | Login, Register, Forgot Password, Reset Password berfungsi dengan Blade. | 2026-11-11 |
 | [x] | `AUTH-002` | Styling Tampilan Auth dengan Tailwind CSS | Halaman login & register memiliki desain clean dan responsif di layar HP. | 2026-11-15 |
-| [ ] | `AUTH-003` | Tambah Kolom `base_currency` pada User | Kolom `base_currency` ada di tabel `users` (default: 'IDR') dan dapat diubah di profile. | - |
+| [x] | `AUTH-003` | Tambah Kolom `base_currency` pada User | Kolom `base_currency` ada di tabel `users` (default: 'IDR') dan dapat diubah di profile. | 2026-11-15 |
 
 ## 🗄️ Fase 2A: Database Schema Inti Gelombang 1 (`DB`)
 

@@ -96,4 +96,50 @@ class ProfileTest extends TestCase
 
         $this->assertNotNull($user->fresh());
     }
+
+    public function test_new_user_defaults_to_idr_base_currency(): void
+    {
+        $user = User::factory()->create();
+
+        $this->assertSame('IDR', $user->fresh()->base_currency);
+    }
+
+    public function test_base_currency_can_be_updated_in_profile(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->patch('/profile', [
+                'name' => $user->name,
+                'email' => $user->email,
+                'base_currency' => 'USD',
+            ]);
+
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/profile');
+
+        $this->assertSame('USD', $user->fresh()->base_currency);
+    }
+
+    public function test_invalid_base_currency_is_rejected(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->from('/profile')
+            ->patch('/profile', [
+                'name' => $user->name,
+                'email' => $user->email,
+                'base_currency' => 'EUR',
+            ]);
+
+        $response
+            ->assertSessionHasErrors('base_currency')
+            ->assertRedirect('/profile');
+
+        $this->assertSame('IDR', $user->fresh()->base_currency);
+    }
 }
