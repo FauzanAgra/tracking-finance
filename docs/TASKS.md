@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 9 / 47 Selesai (19%)
+* **Status Progres**: 11 / 47 Selesai (23%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -45,8 +45,8 @@
 |:---:|---|---|---|:---:|
 | [x] | `DB-001` | Migration & Model `wallets` | Tabel dompet lengkap dengan kolom `currency`, `balance`, `type`, dan `is_default`. | 2026-11-15 |
 | [x] | `DB-002` | Migration & Model `categories` | Tabel kategori (`income` / `expense`) beserta icon dan warna badge. | 2026-11-15 |
-| [ ] | `DB-003` | Migration & Model `transactions` | Tabel transaksi mendukung income, expense, transfer, dan field exchange rate. | - |
-| [ ] | `DB-004` | Migration & Model `debts` & `debt_payments` | Tabel utang/piutang (include `written_off_amount`) dan histori cicilan per dompet. | - |
+| [x] | `DB-003` | Migration & Model `transactions` | Tabel transaksi mendukung income, expense, transfer, dan field exchange rate. | 2026-11-15 |
+| [x] | `DB-004` | Migration & Model `debts` & `debt_payments` | Tabel utang/piutang (include `written_off_amount`) dan histori cicilan per dompet. | 2026-11-15 |
 | [ ] | `DB-005` | Database Seeder Kategori Default | Seeder kategori bawaan (Makanan, Transport, Gaji, Sedekah/Write-off, dll.). | - |
 
 ## 💼 Fase 3: Modul Multi-Dompet IDR (`WALL`)
