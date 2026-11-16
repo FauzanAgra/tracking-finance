@@ -143,15 +143,12 @@
                     <label class="block text-label-xs uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary font-semibold" for="wallet-balance">
                         Saldo
                     </label>
-                    <input
+                    <x-money-input
                         id="wallet-balance"
                         name="balance"
-                        type="number"
-                        step="0.0001"
-                        min="0"
-                        x-model="form.balance"
-                        required
-                        class="w-full h-11 px-3 rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border text-text-primary dark:text-dark-text-primary tabular-nums text-body-md text-right focus:border-forest-primary dark:focus:border-dark-lime focus:ring-1 focus:ring-forest-primary dark:focus:ring-dark-lime focus:outline-none"
+                        model="form.balance"
+                        :required="true"
+                        class="w-full h-11 px-3 rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border text-text-primary dark:text-dark-text-primary text-body-md text-right focus:border-forest-primary dark:focus:border-dark-lime focus:ring-1 focus:ring-forest-primary dark:focus:ring-dark-lime focus:outline-none"
                     />
                     <x-input-error :messages="$errors->get('balance')" class="mt-1" />
                 </div>

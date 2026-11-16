@@ -303,7 +303,7 @@
 
                     <div>
                         <label for="budget-amount" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Batas Anggaran (Rp)</label>
-                        <input id="budget-amount" type="number" name="amount" step="any" min="1" x-model="form.amount" required placeholder="1500000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary">
+                        <x-money-input id="budget-amount" name="amount" model="form.amount" :required="true" placeholder="1.500.000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold text-text-primary dark:text-dark-text-primary" />
                     </div>
 
                     <button type="submit" class="w-full py-3 rounded-full bg-forest-primary dark:bg-dark-lime text-white dark:text-dark-canvas text-label-lg font-bold shadow-md cursor-pointer">

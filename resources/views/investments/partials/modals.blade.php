@@ -80,7 +80,7 @@
 
                 <div>
                     <label for="inv-price" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Harga per Unit</label>
-                    <input id="inv-price" type="number" name="price_per_unit" step="any" min="0.000001" x-model="tradeForm.price_per_unit" @input="recalculateFee()" required placeholder="10000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-body-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary">
+                    <x-money-input id="inv-price" name="price_per_unit" model="tradeForm.price_per_unit" onInput="recalculateFee()" :required="true" placeholder="10.000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-body-md font-bold text-text-primary dark:text-dark-text-primary" />
                 </div>
             </div>
 
@@ -93,7 +93,7 @@
                         <span>Auto Fee IDX (0.15% / 0.25%)</span>
                     </label>
                 </div>
-                <input id="inv-fee" type="number" name="fee" step="any" min="0" x-model="tradeForm.fee" @input="autoFee = false" class="w-full rounded-xl bg-surface-card dark:bg-dark-surface border border-border-subtle dark:border-dark-border px-3 py-2 text-body-sm tabular-nums text-text-primary dark:text-dark-text-primary">
+                <x-money-input id="inv-fee" name="fee" model="tradeForm.fee" onInput="autoFee = false" class="w-full rounded-xl bg-surface-card dark:bg-dark-surface border border-border-subtle dark:border-dark-border px-3 py-2 text-body-sm text-text-primary dark:text-dark-text-primary" />
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">
@@ -146,7 +146,7 @@
             @method('PATCH')
             <div>
                 <label for="manual-price-input" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Harga Terkini</label>
-                <input id="manual-price-input" type="number" name="current_price" step="any" min="0.000001" x-model="manualPriceInput" required class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary">
+                <x-money-input id="manual-price-input" name="current_price" model="manualPriceInput" :required="true" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold text-text-primary dark:text-dark-text-primary" />
             </div>
             <button type="submit" class="w-full py-3 rounded-full bg-forest-primary dark:bg-dark-lime text-white dark:text-dark-canvas text-label-lg font-bold shadow-md cursor-pointer">
                 Simpan Harga Manual

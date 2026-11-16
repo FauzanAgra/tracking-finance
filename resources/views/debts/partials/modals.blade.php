@@ -57,7 +57,7 @@
             <div class="grid grid-cols-2 gap-2.5">
                 <div>
                     <label for="debt-amount" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Total Pokok (Rp)</label>
-                    <input id="debt-amount" type="number" name="total_amount" step="any" min="1" value="{{ old('total_amount') }}" required placeholder="400000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-body-md tabular-nums text-text-primary dark:text-dark-text-primary">
+                    <x-money-input id="debt-amount" name="total_amount" :value="old('total_amount', '')" :required="true" placeholder="400.000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-body-md text-text-primary dark:text-dark-text-primary" />
                 </div>
                 <div>
                     <label for="debt-phone" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">No. HP (Opsional)</label>
@@ -114,7 +114,7 @@
             @csrf
             <div>
                 <label for="pay-amount" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Nominal Cicilan (Rp)</label>
-                <input id="pay-amount" type="number" name="amount" step="any" min="1" x-model="paymentForm.amount" required class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary">
+                <x-money-input id="pay-amount" name="amount" model="paymentForm.amount" :required="true" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold text-text-primary dark:text-dark-text-primary" />
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">

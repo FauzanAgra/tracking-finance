@@ -137,17 +137,14 @@
                     </label>
                     <div class="flex items-center justify-center gap-1.5">
                         <span class="text-title-md font-bold text-text-secondary dark:text-dark-text-secondary">Rp</span>
-                        <input
+                        <x-money-input
                             id="quick-amount"
-                            type="number"
                             name="amount"
-                            step="any"
-                            min="1"
-                            x-model="quickForm.amount"
-                            required
+                            model="quickForm.amount"
+                            :required="true"
                             placeholder="0"
-                            class="w-44 bg-transparent text-center text-headline-lg-mobile font-bold tabular-nums text-text-primary dark:text-dark-text-primary focus:outline-none"
-                        >
+                            class="w-44 bg-transparent text-center text-headline-lg-mobile font-bold text-text-primary dark:text-dark-text-primary focus:outline-none"
+                        />
                     </div>
                 </div>
 
@@ -237,32 +234,26 @@
 
                         <div>
                             <label for="quick-fee" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Biaya Admin</label>
-                            <input
+                            <x-money-input
                                 id="quick-fee"
-                                type="number"
                                 name="fee"
-                                step="any"
-                                min="0"
-                                x-model="quickForm.fee"
+                                model="quickForm.fee"
                                 placeholder="0"
-                                class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-body-sm tabular-nums text-text-primary dark:text-dark-text-primary focus:outline-none focus:border-forest-primary dark:focus:border-dark-lime"
-                            >
+                                class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-body-sm text-text-primary dark:text-dark-text-primary focus:outline-none focus:border-forest-primary dark:focus:border-dark-lime"
+                            />
                         </div>
                     </div>
 
                     <div x-show="quickForm.type === 'currency_exchange'" class="rounded-xl bg-surface-tint dark:bg-dark-sidebar border border-border-subtle dark:border-dark-border p-3 space-y-1.5">
                         <label for="quick-dest-amount" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary">Nominal Diterima (Valas)</label>
-                        <input
+                        <x-money-input
                             id="quick-dest-amount"
-                            type="number"
                             name="destination_amount"
-                            step="any"
-                            min="0.0001"
-                            x-model="quickForm.destination_amount"
-                            :required="quickForm.type === 'currency_exchange'"
+                            model="quickForm.destination_amount"
+                            x-bind:required="quickForm.type === 'currency_exchange'"
                             placeholder="Contoh: 100"
-                            class="w-full rounded-xl bg-surface-card dark:bg-dark-surface border border-border-subtle dark:border-dark-border px-3 py-2 text-body-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary focus:outline-none focus:border-forest-primary dark:focus:border-dark-lime"
-                        >
+                            class="w-full rounded-xl bg-surface-card dark:bg-dark-surface border border-border-subtle dark:border-dark-border px-3 py-2 text-body-md font-bold text-text-primary dark:text-dark-text-primary focus:outline-none focus:border-forest-primary dark:focus:border-dark-lime"
+                        />
                         <p class="text-label-xs text-text-muted dark:text-dark-text-muted tabular-nums" x-show="Number(quickForm.amount) > 0 && Number(quickForm.destination_amount) > 0">
                             Estimasi kurs: 1 unit tujuan = <strong class="text-forest-primary dark:text-dark-lime" x-text="(Number(quickForm.amount) / Number(quickForm.destination_amount)).toLocaleString('id-ID', { maximumFractionDigits: 2 })"></strong>
                         </p>

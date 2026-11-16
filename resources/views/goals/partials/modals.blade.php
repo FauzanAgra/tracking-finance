@@ -61,7 +61,7 @@
 
             <div>
                 <label for="goal-target" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Nominal Target</label>
-                <input id="goal-target" type="number" name="target_amount" step="any" min="1" x-model="goalForm.target_amount" required placeholder="18000000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary">
+                <x-money-input id="goal-target" name="target_amount" model="goalForm.target_amount" :required="true" placeholder="18.000.000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold text-text-primary dark:text-dark-text-primary" />
             </div>
 
             <div>
@@ -112,7 +112,7 @@
             @csrf
             <div>
                 <label for="contrib-amount" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Nominal Setoran</label>
-                <input id="contrib-amount" type="number" name="amount" step="any" min="1" x-model="contributeForm.amount" required placeholder="500000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary">
+                <x-money-input id="contrib-amount" name="amount" model="contributeForm.amount" :required="true" placeholder="500.000" class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3.5 py-2.5 text-title-md font-bold text-text-primary dark:text-dark-text-primary" />
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">

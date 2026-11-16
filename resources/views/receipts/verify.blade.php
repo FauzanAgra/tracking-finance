@@ -89,16 +89,13 @@
                     <div class="grid grid-cols-2 gap-2.5">
                         <div>
                             <label for="verify-amount" class="block text-label-xs font-semibold text-text-secondary dark:text-dark-text-secondary mb-1">Total Nominal (Rp)</label>
-                            <input
+                            <x-money-input
                                 id="verify-amount"
-                                type="number"
                                 name="amount"
-                                step="any"
-                                min="1"
-                                value="{{ old('amount', $totalAmount > 0 ? $totalAmount : '') }}"
-                                required
-                                class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-title-md font-bold tabular-nums text-text-primary dark:text-dark-text-primary"
-                            >
+                                :value="old('amount', $totalAmount > 0 ? $totalAmount : '')"
+                                :required="true"
+                                class="w-full rounded-xl bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border px-3 py-2 text-title-md font-bold text-text-primary dark:text-dark-text-primary"
+                            />
                         </div>
 
                         <div>
