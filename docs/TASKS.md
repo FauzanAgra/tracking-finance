@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 41 / 47 Selesai (87%)
+* **Status Progres**: 44 / 47 Selesai (94%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -137,9 +137,9 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `DASH-001` | Kalkulasi Total Kekayaan Bersih (Net Worth) | Menggabungkan saldo kas + portofolio investasi + piutang - utang ke dalam IDR. | - |
-| [ ] | `DASH-002` | Grafik Donat Distribusi Pengeluaran | Chart.js interaktif untuk melihat porsi pengeluaran berdasarkan kategori. | - |
-| [ ] | `DASH-003` | Grafik Arus Kas Bulanan (Cashflow Trend) | Chart tren pemasukan vs pengeluaran bulanan. | - |
+| [x] | `DASH-001` | Kalkulasi Total Kekayaan Bersih (Net Worth) | Menggabungkan saldo kas + portofolio investasi + piutang - utang ke dalam IDR. | 2026-11-16 |
+| [x] | `DASH-002` | Grafik Donat Distribusi Pengeluaran | Chart.js interaktif untuk melihat porsi pengeluaran berdasarkan kategori. | 2026-11-16 |
+| [x] | `DASH-003` | Grafik Arus Kas Bulanan (Cashflow Trend) | Chart tren pemasukan vs pengeluaran bulanan. | 2026-11-16 |
 
 ## 🧹 Fase 10: Polishing, Export Laporan & QA (`FIN`)
 
