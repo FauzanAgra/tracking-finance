@@ -16,8 +16,13 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'activeWalletsCount' => $user->wallets()->active()->count(),
+            'inProgressGoalsCount' => $user->goals()->where('status', 'in_progress')->count(),
+            'investmentAssetsCount' => $user->investmentAssets()->count(),
         ]);
     }
 
