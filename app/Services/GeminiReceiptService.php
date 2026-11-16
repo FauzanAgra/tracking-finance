@@ -41,7 +41,15 @@ class GeminiReceiptService
             throw new DomainException('GEMINI_API_KEY belum diatur di file .env. Kamu tetap bisa mengisi transaksi secara manual.');
         }
 
-        $model = (string) config('services.gemini.model', 'gemini-2.5-flash');
+        $configuredModel = (string) config('services.gemini.model', 'gemini-3.5-flash');
+        $candidateModels = array_values(array_unique([
+            $configuredModel,
+            'gemini-3.5-flash',
+            'gemini-3.6-flash',
+            'gemini-3.7-flash',
+            'gemini-3.8-flash',
+        ]));
+
         $mimeType = $file->getMimeType() ?: 'image/jpeg';
         $base64Image = base64_encode(Storage::disk('public')->get($path));
 
@@ -50,38 +58,92 @@ class GeminiReceiptService
             .'suggested_category (string, e.g. Makanan, Belanja Bulanan, Transportasi), '
             .'and items (array of objects with name and price).';
 
-        try {
-            $response = Http::timeout(25)
-                ->withHeaders([
-                    'x-goog-api-key' => $apiKey,
-                    'Content-Type' => 'application/json',
-                ])
-                ->post("https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent", [
-                    'contents' => [
+        $payload = [
+            'contents' => [
+                [
+                    'parts' => [
+                        ['text' => $prompt],
                         [
-                            'parts' => [
-                                ['text' => $prompt],
-                                [
-                                    'inline_data' => [
-                                        'mime_type' => $mimeType,
-                                        'data' => $base64Image,
-                                    ],
-                                ],
+                            'inline_data' => [
+                                'mime_type' => $mimeType,
+                                'data' => $base64Image,
                             ],
                         ],
                     ],
-                    'generationConfig' => [
-                        'responseMimeType' => 'application/json',
-                    ],
-                ]);
+                ],
+            ],
+            'generationConfig' => [
+                'responseMimeType' => 'application/json',
+            ],
+        ];
 
-            if (! $response->successful()) {
+        try {
+            $response = null;
+            $lastException = null;
+
+            foreach ($candidateModels as $model) {
+                try {
+                    $response = Http::withOptions(['force_ip_resolve' => 'v4'])
+                        ->timeout(20)
+                        ->withHeaders([
+                            'x-goog-api-key' => $apiKey,
+                            'Content-Type' => 'application/json',
+                        ])
+                        ->post("https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent", $payload);
+
+                    if ($response->successful()) {
+                        break;
+                    }
+
+                    if (! in_array($response->status(), [404, 429, 500, 503], true)) {
+                        break;
+                    }
+                } catch (Throwable $e) {
+                    $lastException = $e;
+                    $response = null;
+                }
+            }
+
+            if (($response === null || ! $response->successful()) && ($response === null || in_array($response->status(), [404, 429, 500, 503], true))) {
+                foreach ($this->discoverFlashModels($apiKey) as $discoveredModel) {
+                    if (in_array($discoveredModel, $candidateModels, true)) {
+                        continue;
+                    }
+
+                    try {
+                        $response = Http::withOptions(['force_ip_resolve' => 'v4'])
+                            ->timeout(20)
+                            ->withHeaders([
+                                'x-goog-api-key' => $apiKey,
+                                'Content-Type' => 'application/json',
+                            ])
+                            ->post("https://generativelanguage.googleapis.com/v1beta/models/{$discoveredModel}:generateContent", $payload);
+
+                        if ($response->successful() || ! in_array($response->status(), [404, 429, 500, 503], true)) {
+                            break;
+                        }
+                    } catch (Throwable $e) {
+                        $lastException = $e;
+                        $response = null;
+                    }
+                }
+            }
+
+            if ($response === null && $lastException !== null) {
+                throw $lastException;
+            }
+
+            if ($response === null || ! $response->successful()) {
+                $status = $response?->status() ?? 0;
+                $apiMessage = (string) data_get($response?->json(), 'error.message', '');
+                $errorDetail = $apiMessage !== '' ? "HTTP {$status}: {$apiMessage}" : "HTTP {$status}";
+
                 $scan->update([
                     'status' => 'failed',
-                    'raw_gemini_response' => ['error' => 'Gemini API error: HTTP '.$response->status()],
+                    'raw_gemini_response' => ['error' => $errorDetail],
                 ]);
 
-                throw new DomainException('Gagal memindai struk dengan Gemini API (HTTP '.$response->status().').');
+                throw new DomainException("Gagal memindai struk dengan Gemini API ({$errorDetail}).");
             }
 
             $textPayload = (string) data_get($response->json(), 'candidates.0.content.parts.0.text', '');
@@ -101,7 +163,7 @@ class GeminiReceiptService
                 'raw_gemini_response' => ['error' => $e->getMessage()],
             ]);
 
-            throw new DomainException('Terjadi kesalahan saat menghubungi Gemini Vision API.');
+            throw new DomainException('Terjadi kesalahan saat menghubungi Gemini Vision API: '.$e->getMessage());
         }
     }
 
@@ -157,5 +219,33 @@ class GeminiReceiptService
             'suggested_category' => (string) ($decoded['suggested_category'] ?? ''),
             'items' => is_array($decoded['items'] ?? null) ? $decoded['items'] : [],
         ];
+    }
+
+    /**
+     * Query Gemini ListModels endpoint to discover active generateContent flash models for this API key.
+     *
+     * @return array<int, string>
+     */
+    private function discoverFlashModels(string $apiKey): array
+    {
+        try {
+            $response = Http::withOptions(['force_ip_resolve' => 'v4'])
+                ->timeout(15)
+                ->withHeaders(['x-goog-api-key' => $apiKey])
+                ->get('https://generativelanguage.googleapis.com/v1beta/models');
+
+            if (! $response->successful()) {
+                return [];
+            }
+
+            return collect($response->json('models', []))
+                ->filter(fn (array $m) => in_array('generateContent', $m['supportedGenerationMethods'] ?? [], true))
+                ->map(fn (array $m) => str_replace('models/', '', (string) ($m['name'] ?? '')))
+                ->filter(fn (string $name) => $name !== '' && str_contains(strtolower($name), 'flash'))
+                ->values()
+                ->all();
+        } catch (Throwable) {
+            return [];
+        }
     }
 }
