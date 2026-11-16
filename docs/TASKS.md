@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 44 / 47 Selesai (94%)
+* **Status Progres**: 47 / 47 Selesai (100%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -145,6 +145,6 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `FIN-001` | Fitur Export Laporan ke CSV / Excel | Download riwayat transaksi terfilter ke dalam file CSV/Excel. | - |
-| [ ] | `FIN-002` | Uji Responsivitas Mobile Web App | Memastikan seluruh halaman rapi di layar ponsel (390px+) dan desktop. | - |
-| [ ] | `FIN-003` | Verifikasi Build Produksi & Test Otomatis | Jalankan `npm run build` dan `php artisan test` tanpa warning/error. | - |
+| [x] | `FIN-001` | Fitur Export Laporan ke CSV / Excel | Download riwayat transaksi terfilter ke dalam file CSV/Excel. | 2026-11-16 |
+| [x] | `FIN-002` | Uji Responsivitas Mobile Web App | Memastikan seluruh halaman rapi di layar ponsel (390px+) dan desktop. | 2026-11-16 |
+| [x] | `FIN-003` | Verifikasi Build Produksi & Test Otomatis | Jalankan `npm run build` dan `php artisan test` tanpa warning/error. | 2026-11-16 |

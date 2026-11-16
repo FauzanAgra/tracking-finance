@@ -63,6 +63,14 @@
                     >
                         Kategori
                     </a>
+                    <a
+                        href="{{ route('transactions.export', request()->query()) }}"
+                        title="Export CSV"
+                        aria-label="Export CSV"
+                        class="w-9 h-9 rounded-full bg-surface-card dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-forest-primary dark:hover:text-dark-lime active:scale-95 transition-all"
+                    >
+                        <span class="material-symbols-outlined text-[18px]">download</span>
+                    </a>
 
                     <button
                         type="button"
