@@ -71,4 +71,36 @@ class User extends Authenticatable
     {
         return $this->hasMany(Debt::class);
     }
+
+    /**
+     * Get the monthly budgets owned by the user.
+     */
+    public function budgets(): HasMany
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+    /**
+     * Get the financial goals owned by the user.
+     */
+    public function goals(): HasMany
+    {
+        return $this->hasMany(Goal::class);
+    }
+
+    /**
+     * Get the investment assets owned by the user.
+     */
+    public function investmentAssets(): HasMany
+    {
+        return $this->hasMany(InvestmentAsset::class);
+    }
+
+    /**
+     * Get the investment transactions owned by the user.
+     */
+    public function investmentTransactions(): HasMany
+    {
+        return $this->hasMany(InvestmentTransaction::class);
+    }
 }

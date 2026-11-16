@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 23 / 47 Selesai (49%)
+* **Status Progres**: 26 / 47 Selesai (55%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -84,9 +84,9 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `DB-006` | Migration & Model `budgets` & `system_exchange_rates` | Tabel batas budget bulanan (`YYYY-MM`) dan kurs acuan USD/IDR. | - |
-| [ ] | `DB-007` | Migration & Model `goals` & `goal_contributions` | Tabel target tabungan impian dan setoran saldo bertahap dari dompet. | - |
-| [ ] | `DB-008` | Migration & Model `investment_assets` & `investment_transactions` | Tabel master aset (`is_manual_price`) dan riwayat trade (support Lot IDX). | - |
+| [x] | `DB-006` | Migration & Model `budgets` & `system_exchange_rates` | Tabel batas budget bulanan (`YYYY-MM`) dan kurs acuan USD/IDR. | 2026-11-16 |
+| [x] | `DB-007` | Migration & Model `goals` & `goal_contributions` | Tabel target tabungan impian dan setoran saldo bertahap dari dompet. | 2026-11-16 |
+| [x] | `DB-008` | Migration & Model `investment_assets` & `investment_transactions` | Tabel master aset (`is_manual_price`) dan riwayat trade (support Lot IDX). | 2026-11-16 |
 
 ## 💱 Fase 4B: Konversi Valas & Budgeting (`TXN`)
 
