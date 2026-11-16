@@ -44,14 +44,23 @@
                     <span class="text-label-xs text-text-muted dark:text-dark-text-muted">Smart default &bull; input instan</span>
                 </div>
             </div>
-            <button
-                type="button"
-                @click="quickModalOpen = false"
-                aria-label="Tutup modal"
-                class="w-8 h-8 rounded-full bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary cursor-pointer"
-            >
-                <span class="material-symbols-outlined text-[18px]">close</span>
-            </button>
+            <div class="flex items-center gap-1.5">
+                <a
+                    href="{{ route('receipts.index') }}"
+                    class="px-2.5 py-1.5 rounded-full bg-accent-lime-soft dark:bg-dark-surface-tint border border-forest-primary/20 dark:border-dark-border text-forest-primary dark:text-dark-lime text-label-md font-semibold flex items-center gap-1"
+                >
+                    <span class="material-symbols-outlined text-[15px] fill-1">photo_camera</span>
+                    <span>Scan AI</span>
+                </a>
+                <button
+                    type="button"
+                    @click="quickModalOpen = false"
+                    aria-label="Tutup modal"
+                    class="w-8 h-8 rounded-full bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary cursor-pointer"
+                >
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+            </div>
         </div>
 
         @if (session('error'))

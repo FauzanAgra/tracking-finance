@@ -4,7 +4,9 @@ use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DebtController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReceiptScannerController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +50,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/goals/{goal}', [GoalController::class, 'update'])->name('goals.update');
     Route::post('/goals/{goal}/contributions', [GoalController::class, 'storeContribution'])->name('goals.contributions.store');
     Route::delete('/goals/{goal}', [GoalController::class, 'destroy'])->name('goals.destroy');
+
+    Route::get('/investments', [InvestmentController::class, 'index'])->name('investments.index');
+    Route::post('/investments/trades', [InvestmentController::class, 'storeTrade'])->name('investments.trades.store');
+    Route::post('/investments/refresh', [InvestmentController::class, 'refreshPrices'])->name('investments.refresh');
+    Route::patch('/investments/{asset}/manual-price', [InvestmentController::class, 'updateManualPrice'])->name('investments.manual-price');
+
+    Route::get('/receipts', [ReceiptScannerController::class, 'index'])->name('receipts.index');
+    Route::post('/receipts', [ReceiptScannerController::class, 'store'])->name('receipts.store');
+    Route::get('/receipts/{receiptScan}', [ReceiptScannerController::class, 'show'])->name('receipts.show');
+    Route::post('/receipts/{receiptScan}/confirm', [ReceiptScannerController::class, 'confirm'])->name('receipts.confirm');
 });
 
 Route::middleware('auth')->group(function () {

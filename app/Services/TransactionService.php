@@ -37,6 +37,7 @@ class TransactionService
                 'fee' => 0,
                 'transaction_date' => $data['transaction_date'],
                 'description' => $data['description'] ?? null,
+                'attachment_path' => $data['attachment_path'] ?? null,
             ]);
         });
     }
@@ -64,6 +65,7 @@ class TransactionService
                 'fee' => 0,
                 'transaction_date' => $data['transaction_date'],
                 'description' => $data['description'] ?? null,
+                'attachment_path' => $data['attachment_path'] ?? null,
             ]);
         });
     }
@@ -99,6 +101,7 @@ class TransactionService
                 'fee' => $fee,
                 'transaction_date' => $data['transaction_date'],
                 'description' => $data['description'] ?? null,
+                'attachment_path' => $data['attachment_path'] ?? null,
             ]);
         });
     }
@@ -141,6 +144,7 @@ class TransactionService
                 'fee' => $fee,
                 'transaction_date' => $data['transaction_date'],
                 'description' => $data['description'] ?? null,
+                'attachment_path' => $data['attachment_path'] ?? null,
             ]);
         });
     }

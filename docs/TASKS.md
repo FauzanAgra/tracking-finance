@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 31 / 47 Selesai (66%)
+* **Status Progres**: 41 / 47 Selesai (87%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -107,12 +107,12 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `INV-001` | Service Layer: `InvestmentService` (DCA Math) | Perhitungan Weighted Average Cost, konversi Lot Saham IDX (1 lot = 100 lembar). | - |
-| [ ] | `INV-002` | Form Transaksi Beli/Jual Aset & Toggle Fee | Input transaksi beli/jual terhubung ke dompet dana + opsi fee broker otomatis. | - |
-| [ ] | `INV-003` | Integrasi API Harga Pasar: `MarketPriceService` | Fetch data CoinGecko (Crypto) dan Yahoo Finance (Saham IDX & US). | - |
-| [ ] | `INV-004` | Dashboard Portfolio & Floating PnL | Tampilan keuntungan/kerugian belum terealisasi (*Unrealized PnL* % dan Nominal). | - |
-| [ ] | `INV-005` | Tombol Refresh Harga & Scheduler Otomatis | Tombol manual *"🔄 Refresh Harga"* dan Artisan Command untuk cron harian. | - |
-| [ ] | `INV-006` | Fitur "Edit Harga Manual" (API Fallback) | Form edit harga aset manual (`is_manual_price`) apabila API eksternal down/error. | - |
+| [x] | `INV-001` | Service Layer: `InvestmentService` (DCA Math) | Perhitungan Weighted Average Cost, konversi Lot Saham IDX (1 lot = 100 lembar). | 2026-11-16 |
+| [x] | `INV-002` | Form Transaksi Beli/Jual Aset & Toggle Fee | Input transaksi beli/jual terhubung ke dompet dana + opsi fee broker otomatis. | 2026-11-16 |
+| [x] | `INV-003` | Integrasi API Harga Pasar: `MarketPriceService` | Fetch data CoinGecko (Crypto) dan Yahoo Finance (Saham IDX & US). | 2026-11-16 |
+| [x] | `INV-004` | Dashboard Portfolio & Floating PnL | Tampilan keuntungan/kerugian belum terealisasi (*Unrealized PnL* % dan Nominal). | 2026-11-16 |
+| [x] | `INV-005` | Tombol Refresh Harga & Scheduler Otomatis | Tombol manual *"🔄 Refresh Harga"* dan Artisan Command untuk cron harian. | 2026-11-16 |
+| [x] | `INV-006` | Fitur "Edit Harga Manual" (API Fallback) | Form edit harga aset manual (`is_manual_price`) apabila API eksternal down/error. | 2026-11-16 |
 
 ---
 
@@ -123,15 +123,15 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `DB-009` | Migration & Model `receipt_scans` | Tabel log hasil ekstraksi JSON foto struk dari Gemini Vision API. | - |
+| [x] | `DB-009` | Migration & Model `receipt_scans` | Tabel log hasil ekstraksi JSON foto struk dari Gemini Vision API. | 2026-11-16 |
 
 ## 🧾 Fase 8: AI Receipt Scanner via Gemini API (`AI`)
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `AI-001` | Service Layer: `GeminiReceiptService` | Kirim foto struk ke Google Gemini Vision API dan parse JSON terstruktur. | - |
-| [ ] | `AI-002` | UI Upload Struk Drag & Drop / Kamera HP | Komponen upload gambar nota dengan preview gambar interaktif. | - |
-| [ ] | `AI-003` | Form Verifikasi & Konfirmasi Transaksi | Form auto-fill dari respon AI untuk ditinjau pengguna sebelum disimpan ke database. | - |
+| [x] | `AI-001` | Service Layer: `GeminiReceiptService` | Kirim foto struk ke Google Gemini Vision API dan parse JSON terstruktur. | 2026-11-16 |
+| [x] | `AI-002` | UI Upload Struk Drag & Drop / Kamera HP | Komponen upload gambar nota dengan preview gambar interaktif. | 2026-11-16 |
+| [x] | `AI-003` | Form Verifikasi & Konfirmasi Transaksi | Form auto-fill dari respon AI untuk ditinjau pengguna sebelum disimpan ke database. | 2026-11-16 |
 
 ## 💎 Fase 9: Dashboard Total Net Worth & Analisis Visual (`DASH`)
 

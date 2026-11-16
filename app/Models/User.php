@@ -103,4 +103,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(InvestmentTransaction::class);
     }
+
+    /**
+     * Get the AI receipt scans uploaded by the user.
+     */
+    public function receiptScans(): HasMany
+    {
+        return $this->hasMany(ReceiptScan::class);
+    }
 }
