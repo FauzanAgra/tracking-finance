@@ -104,6 +104,48 @@ class TransactionService
     }
 
     /**
+     * Record a cross-currency exchange transfer (e.g. IDR -> USD/USDT) atomically.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function recordCurrencyExchange(User $user, array $data): Transaction
+    {
+        return DB::transaction(function () use ($user, $data): Transaction {
+            $fromWallet = Wallet::query()
+                ->where('user_id', $user->id)
+                ->findOrFail($data['wallet_id']);
+
+            $toWallet = Wallet::query()
+                ->where('user_id', $user->id)
+                ->findOrFail($data['destination_wallet_id']);
+
+            $fee = (float) ($data['fee'] ?? 0);
+
+            $exchangeRate = $this->walletService->transferCurrencyExchange(
+                $fromWallet,
+                $toWallet,
+                $data['amount'],
+                $data['destination_amount'],
+                $fee,
+            );
+
+            return Transaction::create([
+                'user_id' => $user->id,
+                'wallet_id' => $fromWallet->id,
+                'destination_wallet_id' => $toWallet->id,
+                'category_id' => null,
+                'type' => 'currency_exchange',
+                'amount' => $data['amount'],
+                'destination_amount' => $data['destination_amount'],
+                'exchange_rate' => $exchangeRate,
+                'fee' => $fee,
+                'transaction_date' => $data['transaction_date'],
+                'description' => $data['description'] ?? null,
+            ]);
+        });
+    }
+
+    /**
      * Delete a transaction and reverse its wallet balance mutation atomically.
      */
     public function deleteTransaction(Transaction $transaction): void
@@ -114,7 +156,7 @@ class TransactionService
             match ($transaction->type) {
                 'income' => $this->walletService->debit($wallet, $transaction->amount),
                 'expense' => $this->walletService->credit($wallet, $transaction->amount),
-                'transfer' => $this->reverseTransfer($transaction, $wallet),
+                'transfer', 'currency_exchange' => $this->reverseTransfer($transaction, $wallet),
                 default => throw new DomainException('Tipe transaksi ini belum mendukung penghapusan otomatis.'),
             };
 

@@ -117,6 +117,19 @@
                 </div>
             @endif
 
+            <!-- 2-Way Switcher: Budget Bulanan vs Kelola Kategori -->
+            <div class="bg-surface-card dark:bg-dark-surface p-1 rounded-xl border border-border-subtle dark:border-dark-border flex items-center gap-1">
+                <a
+                    href="{{ route('budgets.index') }}"
+                    class="flex-1 py-1.5 text-center rounded-lg text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary text-label-md font-semibold transition-colors"
+                >
+                    Budget Bulanan
+                </a>
+                <span class="flex-1 py-1.5 text-center rounded-lg bg-forest-primary dark:bg-dark-forest text-white dark:text-dark-lime text-label-md font-semibold shadow-xs">
+                    Kelola Kategori
+                </span>
+            </div>
+
             <!-- Segmented Filter Tabs -->
             <div class="bg-surface-card dark:bg-dark-surface p-1 rounded-xl border border-border-subtle dark:border-dark-border flex items-center gap-1">
                 <button

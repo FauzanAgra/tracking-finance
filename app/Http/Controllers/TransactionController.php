@@ -41,7 +41,7 @@ class TransactionController extends Controller
                         ->orWhereHas('wallet', fn ($w) => $w->where('name', 'like', "%{$search}%"));
                 });
             })
-            ->when(in_array($type, ['income', 'expense', 'transfer'], true), fn ($q) => $q->where('type', $type))
+            ->when(in_array($type, ['income', 'expense', 'transfer', 'currency_exchange'], true), fn ($q) => $q->where('type', $type))
             ->when($walletId, fn ($q) => $q->where(function ($sub) use ($walletId): void {
                 $sub->where('wallet_id', $walletId)
                     ->orWhere('destination_wallet_id', $walletId);
@@ -111,6 +111,7 @@ class TransactionController extends Controller
                 'income' => $this->transactionService->recordIncome($user, $validated),
                 'expense' => $this->transactionService->recordExpense($user, $validated),
                 'transfer' => $this->transactionService->recordTransfer($user, $validated),
+                'currency_exchange' => $this->transactionService->recordCurrencyExchange($user, $validated),
             };
         } catch (DomainException $e) {
             return redirect()

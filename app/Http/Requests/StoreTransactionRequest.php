@@ -25,7 +25,7 @@ class StoreTransactionRequest extends FormRequest
         $userId = $this->user()->id;
 
         return [
-            'type' => ['required', 'string', Rule::in(['income', 'expense', 'transfer'])],
+            'type' => ['required', 'string', Rule::in(['income', 'expense', 'transfer', 'currency_exchange'])],
             'wallet_id' => [
                 'required',
                 'integer',
@@ -33,10 +33,16 @@ class StoreTransactionRequest extends FormRequest
             ],
             'destination_wallet_id' => [
                 'nullable',
-                'required_if:type,transfer',
+                'required_if:type,transfer,currency_exchange',
                 'integer',
                 'different:wallet_id',
                 Rule::exists('wallets', 'id')->where(fn ($query) => $query->where('user_id', $userId)),
+            ],
+            'destination_amount' => [
+                'nullable',
+                'required_if:type,currency_exchange',
+                'numeric',
+                'gt:0',
             ],
             'category_id' => [
                 'nullable',

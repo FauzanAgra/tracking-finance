@@ -10,8 +10,9 @@
             quickModalOpen: @js($openQuickModal),
             filterOpen: @js((bool) ($filters['wallet_id'] || $filters['category_id'] || $filters['date_from'] || $filters['date_to'])),
             quickForm: {
-                type: @js(old('type', 'expense')),
+                type: @js(old('type', request()->query('quick_type', 'expense'))),
                 amount: @js(old('amount', '')),
+                destination_amount: @js(old('destination_amount', '')),
                 wallet_id: @js((string) old('wallet_id', $defaultWalletId)),
                 destination_wallet_id: @js((string) old('destination_wallet_id', '')),
                 category_id: @js((string) old('category_id', '')),
@@ -23,6 +24,7 @@
                 this.quickForm = {
                     type: type,
                     amount: '',
+                    destination_amount: '',
                     wallet_id: @js($defaultWalletId),
                     destination_wallet_id: '',
                     category_id: '',
@@ -35,8 +37,9 @@
             setQuickType(type) {
                 this.quickForm.type = type;
                 this.quickForm.category_id = '';
-                if (type !== 'transfer') {
+                if (type !== 'transfer' && type !== 'currency_exchange') {
                     this.quickForm.destination_wallet_id = '';
+                    this.quickForm.destination_amount = '';
                 }
             }
         }"
@@ -127,7 +130,7 @@
 
                 <!-- Horizontal Quick Type Pills -->
                 <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
-                    @foreach (['all' => 'Semua', 'expense' => 'Pengeluaran', 'income' => 'Pemasukan', 'transfer' => 'Transfer'] as $typeKey => $typeLabel)
+                    @foreach (['all' => 'Semua', 'expense' => 'Pengeluaran', 'income' => 'Pemasukan', 'transfer' => 'Transfer', 'currency_exchange' => 'Valas'] as $typeKey => $typeLabel)
                         <a
                             href="{{ route('transactions.index', array_merge(request()->except('type'), $typeKey === 'all' ? [] : ['type' => $typeKey])) }}"
                             class="shrink-0 px-3 py-1 rounded-full text-label-md font-semibold border transition-colors {{ $filters['type'] === $typeKey ? 'bg-forest-primary dark:bg-dark-lime text-white dark:text-dark-canvas border-forest-primary dark:border-dark-lime' : 'bg-surface-card dark:bg-dark-surface text-text-secondary dark:text-dark-text-secondary border-border-subtle dark:border-dark-border' }}"
@@ -270,14 +273,20 @@
                                     @php
                                         $isIncome = $txn->type === 'income';
                                         $isTransfer = $txn->type === 'transfer';
+                                        $isExchange = $txn->type === 'currency_exchange';
+                                        $isTransferLike = $isTransfer || $isExchange;
                                         $title = $txn->description
-                                            ?: ($isTransfer
-                                                ? 'Transfer ke '.($txn->destinationWallet?->name ?? 'Dompet')
-                                                : ($txn->category?->name ?? 'Transaksi'));
-                                        $icon = $isTransfer
-                                            ? 'swap_horiz'
-                                            : ($txn->category?->icon ?? ($isIncome ? 'payments' : 'receipt_long'));
-                                        $badgeColor = $isTransfer ? '#3B82F6' : ($txn->category?->color ?? '#1E4D38');
+                                            ?: ($isExchange
+                                                ? 'Tukar Valas ke '.($txn->destinationWallet?->name ?? 'Dompet')
+                                                : ($isTransfer
+                                                    ? 'Transfer ke '.($txn->destinationWallet?->name ?? 'Dompet')
+                                                    : ($txn->category?->name ?? 'Transaksi')));
+                                        $icon = $isExchange
+                                            ? 'currency_exchange'
+                                            : ($isTransfer
+                                                ? 'swap_horiz'
+                                                : ($txn->category?->icon ?? ($isIncome ? 'payments' : 'receipt_long')));
+                                        $badgeColor = $isExchange ? '#8B5CF6' : ($isTransfer ? '#3B82F6' : ($txn->category?->color ?? '#1E4D38'));
                                         $amountFormatted = number_format((float) $txn->amount, 0, ',', '.');
                                     @endphp
 
@@ -295,10 +304,14 @@
                                                     {{ $title }}
                                                 </h3>
                                                 <div class="flex items-center gap-1.5 mt-0.5 text-label-xs text-text-muted dark:text-dark-text-muted truncate">
-                                                    @if ($isTransfer)
-                                                        <span class="font-medium text-text-secondary dark:text-dark-text-secondary">Transfer</span>
+                                                    @if ($isTransferLike)
+                                                        <span class="font-medium text-text-secondary dark:text-dark-text-secondary">{{ $isExchange ? 'Valas' : 'Transfer' }}</span>
                                                         <span>&bull;</span>
                                                         <span>{{ $txn->wallet?->name }} &rarr; {{ $txn->destinationWallet?->name }}</span>
+                                                        @if ($isExchange && $txn->exchange_rate)
+                                                            <span>&bull;</span>
+                                                            <span class="tabular-nums">Kurs {{ number_format((float) $txn->exchange_rate, 2, ',', '.') }}</span>
+                                                        @endif
                                                     @else
                                                         <span class="font-medium text-text-secondary dark:text-dark-text-secondary">{{ $txn->category?->name ?? 'Tanpa Kategori' }}</span>
                                                         <span>&bull;</span>
@@ -310,8 +323,12 @@
 
                                         <div class="flex items-center gap-2 shrink-0">
                                             <div class="text-right">
-                                                <span class="text-body-md font-bold tabular-nums {{ $isIncome ? 'text-emerald-600 dark:text-[#86EFAC]' : ($isTransfer ? 'text-sky-600 dark:text-sky-300' : 'text-rose-600 dark:text-[#FDA4AF]') }}">
-                                                    {{ $isIncome ? '+' : ($isTransfer ? '' : '-') }}Rp {{ $amountFormatted }}
+                                                <span class="text-body-md font-bold tabular-nums {{ $isIncome ? 'text-emerald-600 dark:text-[#86EFAC]' : ($isTransferLike ? 'text-sky-600 dark:text-sky-300' : 'text-rose-600 dark:text-[#FDA4AF]') }}">
+                                                    @if ($isExchange)
+                                                        {{ $txn->wallet?->currency }} {{ $amountFormatted }} &rarr; {{ $txn->destinationWallet?->currency }} {{ number_format((float) $txn->destination_amount, 2, ',', '.') }}
+                                                    @else
+                                                        {{ $isIncome ? '+' : ($isTransfer ? '' : '-') }}Rp {{ $amountFormatted }}
+                                                    @endif
                                                 </span>
                                                 @if ($isTransfer && (float) $txn->fee > 0)
                                                     <div class="text-[10px] text-text-muted dark:text-dark-text-muted tabular-nums">

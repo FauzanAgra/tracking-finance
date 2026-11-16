@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 26 / 47 Selesai (55%)
+* **Status Progres**: 28 / 47 Selesai (60%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -92,8 +92,8 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `TXN-003` | Fitur Transfer & Konversi Kurs Antar-Dompet | Transfer IDR ke USDT/USD dengan pencatatan kurs transaksi secara akurat. | - |
-| [ ] | `TXN-005` | Modul Budgeting Bulanan & Indikator Visual | Progress bar pemakaian anggaran belanja (Hijau <70%, Kuning 70-99%, Merah ≥100%). | - |
+| [x] | `TXN-003` | Fitur Transfer & Konversi Kurs Antar-Dompet | Transfer IDR ke USDT/USD dengan pencatatan kurs transaksi secara akurat. | 2026-11-16 |
+| [x] | `TXN-005` | Modul Budgeting Bulanan & Indikator Visual | Progress bar pemakaian anggaran belanja (Hijau <70%, Kuning 70-99%, Merah ≥100%). | 2026-11-16 |
 
 ## 🎯 Fase 6: Financial Goals & Wishlist Tabungan (`GOAL`)
 
