@@ -74,29 +74,6 @@
 
                     <button
                         type="button"
-                        x-data="{
-                            darkMode: document.documentElement.classList.contains('dark'),
-                            toggle() {
-                                this.darkMode = !this.darkMode;
-                                if (this.darkMode) {
-                                    document.documentElement.classList.add('dark');
-                                    localStorage.setItem('tf_theme', 'dark');
-                                } else {
-                                    document.documentElement.classList.remove('dark');
-                                    localStorage.setItem('tf_theme', 'light');
-                                }
-                            }
-                        }"
-                        @click="toggle()"
-                        aria-label="Ganti tema"
-                        class="w-9 h-9 rounded-full bg-surface-card dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-forest-primary dark:text-dark-lime active:scale-95 transition-all"
-                    >
-                        <span class="material-symbols-outlined text-[18px]" x-show="darkMode">dark_mode</span>
-                        <span class="material-symbols-outlined text-[18px]" x-show="!darkMode" x-cloak>light_mode</span>
-                    </button>
-
-                    <button
-                        type="button"
                         @click="openQuickEntry('expense')"
                         aria-label="Catat Transaksi"
                         class="w-9 h-9 rounded-full bg-forest-primary dark:bg-dark-lime text-white dark:text-dark-canvas flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer"
