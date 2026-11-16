@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 28 / 47 Selesai (60%)
+* **Status Progres**: 31 / 47 Selesai (66%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -99,9 +99,9 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `GOAL-001` | CRUD Target Tabungan (Goals) | Buat target impian (nama target, nominal target, deadline, mata uang). | - |
-| [ ] | `GOAL-002` | Setoran Dana ke Goal | Alokasi uang dari dompet terpilih ke brankas goal (memotong saldo dompet). | - |
-| [ ] | `GOAL-003` | Progress Bar & Estimasi Cerdas | Tampilan persentase progres dan kalkulasi estimasi sisa waktu target tercapai. | - |
+| [x] | `GOAL-001` | CRUD Target Tabungan (Goals) | Buat target impian (nama target, nominal target, deadline, mata uang). | 2026-11-16 |
+| [x] | `GOAL-002` | Setoran Dana ke Goal | Alokasi uang dari dompet terpilih ke brankas goal (memotong saldo dompet). | 2026-11-16 |
+| [x] | `GOAL-003` | Progress Bar & Estimasi Cerdas | Tampilan persentase progres dan kalkulasi estimasi sisa waktu target tercapai. | 2026-11-16 |
 
 ## 📈 Fase 7: Portfolio Investasi Multi-Aset (`INV`)
 

@@ -59,6 +59,12 @@
             </div>
 
             <div class="flex items-center gap-2">
+                <a
+                    href="{{ route('goals.index') }}"
+                    class="px-2.5 py-1.5 rounded-full bg-surface-card dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border text-label-md font-semibold text-text-secondary dark:text-dark-text-secondary hover:text-forest-primary dark:hover:text-dark-lime transition-colors"
+                >
+                    Goals
+                </a>
                 <!-- Theme Toggle -->
                 <button
                     type="button"
