@@ -41,21 +41,74 @@ Jika kamu adalah AI Coding Assistant yang baru saja membuka repositori ini, **ba
 
 ---
 
-## 🚀 Panduan Setup Lokal
+## 🚀 Panduan Instalasi & Setup Lokal
 
+### 1. Prasyarat Sistem
+Pastikan perangkatmu sudah terinstall:
+* **PHP** `>= 8.4` (ekstensi: `pdo_mysql`, `mbstring`, `openssl`, `curl`, `fileinfo`, `gd`)
+* **Composer** `>= 2.x`
+* **Node.js** `>= 20.x` & **NPM**
+* **MySQL** `8.0+`
+
+### 2. Clone & Install Dependencies
 ```bash
-# 1. Clone & Install Dependencies
+git clone <url-repositori-kamu>
+cd tracking-finance
 composer install
 npm install
+```
 
-# 2. Konfigurasi Environment
+### 3. Konfigurasi Environment (`.env`)
+Salin file `.env.example` menjadi `.env`, lalu buat application key:
+```bash
 cp .env.example .env
 php artisan key:generate
+```
 
-# 3. Jalankan Migrasi Database & Seeder
+Buat database baru di MySQL (contoh: `tracking_finance`), lalu sesuaikan konfigurasi berikut di `.env`:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=tracking_finance
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Opsional — Wajib diisi jika ingin memakai fitur AI Receipt Scanner
+GEMINI_API_KEY=isi_api_key_google_ai_studio_anda
+GEMINI_MODEL=gemini-3.5-flash
+```
+> **Tips**: Kamu bisa mendapatkan `GEMINI_API_KEY` gratis melalui [Google AI Studio](https://aistudio.google.com/apikey).
+
+### 4. Migrasi Database, Seeder & Storage Link
+```bash
 php artisan migrate --seed
+php artisan storage:link
+```
 
-# 4. Jalankan Dev Server
+### 5. Build Asset & Jalankan Aplikasi
+Untuk development:
+```bash
 php artisan serve
 npm run dev
 ```
+Atau untuk build produksi:
+```bash
+npm run build
+php artisan serve
+```
+Aplikasi dapat diakses di `http://127.0.0.1:8000`.
+
+### 6. Scheduler Harga Pasar & Pengujian (Opsional)
+* **Refresh Harga Investasi Manual**:
+  ```bash
+  php artisan investments:refresh-prices
+  ```
+* **Jalankan Scheduler Lokal** (otomatis setiap hari pukul `16:30 WIB`):
+  ```bash
+  php artisan schedule:work
+  ```
+* **Jalankan Automated Test**:
+  ```bash
+  php artisan test
+  ```
