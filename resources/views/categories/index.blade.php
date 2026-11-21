@@ -201,17 +201,14 @@
                                 >
                                     <span class="material-symbols-outlined text-[15px]">edit</span>
                                 </button>
-                                <form method="POST" action="{{ route('categories.destroy', $category) }}" onsubmit="return confirm('Hapus kategori {{ $category->name }}?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button
-                                        type="submit"
-                                        aria-label="Hapus {{ $category->name }}"
-                                        class="w-8 h-8 rounded-full bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-rose-600 dark:hover:text-rose-400 active:scale-95 transition-all cursor-pointer"
-                                    >
-                                        <span class="material-symbols-outlined text-[15px]">delete</span>
-                                    </button>
-                                </form>
+                                <button
+                                    type="button"
+                                    @click="$dispatch('confirm-delete', { label: '{{ addslashes($category->name) }}', action: '{{ route('categories.destroy', $category) }}' })"
+                                    aria-label="Hapus {{ $category->name }}"
+                                    class="w-8 h-8 rounded-full bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-rose-600 dark:hover:text-rose-400 active:scale-95 transition-all cursor-pointer"
+                                >
+                                    <span class="material-symbols-outlined text-[15px]">delete</span>
+                                </button>
                             </div>
                         </div>
                     @endforeach

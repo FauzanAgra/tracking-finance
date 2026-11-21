@@ -125,17 +125,6 @@
         </header>
 
         <div class="px-gutter py-space-md space-y-4">
-            @if (session('status'))
-                <div class="p-3 rounded-xl bg-semantic-profit-bg/60 dark:bg-dark-surface-tint border border-forest-primary/20 dark:border-dark-lime/30 text-forest-primary dark:text-dark-lime text-body-sm font-medium">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-body-sm font-medium">
-                    {{ session('error') }}
-                </div>
-            @endif
 
             <!-- Hero Portfolio Card (INV-004) -->
             <section class="bg-forest-primary dark:bg-dark-forest rounded-3xl p-5 text-white shadow-md relative overflow-hidden space-y-3">

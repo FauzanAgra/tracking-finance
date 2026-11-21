@@ -33,11 +33,6 @@
         </header>
 
         <div class="px-gutter py-space-md space-y-4">
-            @if (session('error'))
-                <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-body-sm font-medium">
-                    {{ session('error') }}
-                </div>
-            @endif
 
             @if ($errors->any())
                 <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-label-md space-y-1">

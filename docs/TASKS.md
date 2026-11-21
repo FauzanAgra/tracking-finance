@@ -1,8 +1,8 @@
 # Project Task Board & Implementation Backlog
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
-* **Total Tugas**: 47 Tiket (Dibagi menjadi 3 Gelombang Prioritas)
-* **Status Progres**: 48 / 48 Selesai (100%)
+* **Total Tugas**: 52 Tiket (Dibagi menjadi 4 Gelombang Prioritas)
+* **Status Progres**: 48 / 52 Selesai
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -149,3 +149,18 @@
 | [x] | `FIN-002` | Uji Responsivitas Mobile Web App | Memastikan seluruh halaman rapi di layar ponsel (390px+) dan desktop. | 2026-11-16 |
 | [x] | `FIN-003` | Verifikasi Build Produksi & Test Otomatis | Jalankan `npm run build` dan `php artisan test` tanpa warning/error. | 2026-11-16 |
 | [x] | `FIN-004` | Styling Halaman Profil & Pengaturan | Merapikan `/profile` ke shell mobile Stitch Dual Mode + tombol Logout & akses modul. | 2026-11-16 |
+
+
+---
+
+# 🌊 GELOMBANG 4: Polish & UX Enhancement
+> *Tujuan: Meningkatkan kenyamanan pemakaian harian — feedback visual yang lebih baik, keamanan hapus data, performa list transaksi, dan kemampuan edit transaksi yang sudah tercatat.*
+
+## 🧹 Fase 11: Peningkatan UX & Performa (`IMV`)
+
+| Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
+|:---:|---|---|---|:---:|
+| [ ] | `IMV-001` | Reusable Delete Confirmation Modal | Semua tombol hapus di 7 halaman pakai modal Alpine.js terpusat, bukan browser `confirm()`. | - |
+| [ ] | `IMV-002` | Flash Toast Notification Global | Pesan sukses & error muncul sebagai toast animasi dari bawah layar, auto-dismiss 3,5 detik. | - |
+| [ ] | `IMV-003` | Pagination Riwayat Transaksi | Daftar transaksi di-paginate 20/halaman; statistik total tetap dihitung dari seluruh data filter. | - |
+| [ ] | `IMV-004` | Edit & Update Transaksi | Tombol ✏️ Edit di tiap baris membuka bottom-sheet modal pre-filled; saldo dompet diperbarui atomik. | - |

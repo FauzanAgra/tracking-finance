@@ -44,11 +44,6 @@
         </header>
 
         <div class="px-gutter py-space-md space-y-4">
-            @if (session('status'))
-                <div class="p-3 rounded-xl bg-semantic-profit-bg/60 dark:bg-dark-surface-tint border border-forest-primary/20 dark:border-dark-lime/30 text-forest-primary dark:text-dark-lime text-body-sm font-medium">
-                    {{ session('status') }}
-                </div>
-            @endif
 
             <!-- 2-Way Switcher: Budget Bulanan vs Kelola Kategori -->
             <div class="bg-surface-card dark:bg-dark-surface p-1 rounded-xl border border-border-subtle dark:border-dark-border flex items-center gap-1">
@@ -222,17 +217,14 @@
                                     >
                                         <span class="material-symbols-outlined text-[14px]">edit</span>
                                     </button>
-                                    <form method="POST" action="{{ route('budgets.destroy', $budget) }}" onsubmit="return confirm('Hapus budget {{ $category?->name }}?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            type="submit"
-                                            aria-label="Hapus budget"
-                                            class="w-7 h-7 rounded-full bg-surface-tint dark:bg-dark-surface-tint flex items-center justify-center text-text-muted hover:text-rose-600 cursor-pointer"
-                                        >
-                                            <span class="material-symbols-outlined text-[14px]">delete</span>
-                                        </button>
-                                    </form>
+                                    <button
+                                        type="button"
+                                        @click="$dispatch('confirm-delete', { label: '{{ addslashes($category?->name ?? 'budget ini') }}', action: '{{ route('budgets.destroy', $budget) }}' })"
+                                        aria-label="Hapus budget"
+                                        class="w-7 h-7 rounded-full bg-surface-tint dark:bg-dark-surface-tint flex items-center justify-center text-text-muted hover:text-rose-600 cursor-pointer"
+                                    >
+                                        <span class="material-symbols-outlined text-[14px]">delete</span>
+                                    </button>
                                 </div>
                             </div>
 

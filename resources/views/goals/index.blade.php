@@ -88,17 +88,6 @@
         </header>
 
         <div class="px-gutter py-space-md space-y-4">
-            @if (session('status'))
-                <div class="p-3 rounded-xl bg-semantic-profit-bg/60 dark:bg-dark-surface-tint border border-forest-primary/20 dark:border-dark-lime/30 text-forest-primary dark:text-dark-lime text-body-sm font-medium">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-body-sm font-medium">
-                    {{ session('error') }}
-                </div>
-            @endif
 
             <!-- Summary Bento Card (Brankas Goals) -->
             <section class="bg-surface-card dark:bg-dark-surface rounded-3xl p-5 border border-border-subtle dark:border-dark-border shadow-xs space-y-4">
@@ -226,13 +215,14 @@
                                         <span class="material-symbols-outlined text-[14px]">edit</span>
                                     </button>
                                     @if ($goal->contributions->isEmpty())
-                                        <form method="POST" action="{{ route('goals.destroy', $goal) }}" onsubmit="return confirm('Hapus goal {{ $goal->title }}?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" aria-label="Hapus goal" class="w-7 h-7 rounded-full bg-surface-tint dark:bg-dark-surface-tint flex items-center justify-center text-text-muted hover:text-rose-600 cursor-pointer">
-                                                <span class="material-symbols-outlined text-[14px]">delete</span>
-                                            </button>
-                                        </form>
+                                        <button
+                                            type="button"
+                                            @click="$dispatch('confirm-delete', { label: '{{ addslashes($goal->title) }}', action: '{{ route('goals.destroy', $goal) }}' })"
+                                            aria-label="Hapus goal"
+                                            class="w-7 h-7 rounded-full bg-surface-tint dark:bg-dark-surface-tint flex items-center justify-center text-text-muted hover:text-rose-600 cursor-pointer"
+                                        >
+                                            <span class="material-symbols-outlined text-[14px]">delete</span>
+                                        </button>
                                     @endif
                                 </div>
                             </div>

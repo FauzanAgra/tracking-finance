@@ -46,6 +46,12 @@
         @if ($activeNav)
             <x-bottom-nav :active="$activeNav" />
         @endif
+
+        {{-- Global Delete Confirmation Modal (IMV-001) --}}
+        <x-confirm-delete-modal />
+
+        {{-- Global Toast Notification (IMV-002) --}}
+        <x-toast />
     </div>
 </body>
 

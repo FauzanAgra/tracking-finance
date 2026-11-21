@@ -70,17 +70,6 @@
         </header>
 
         <div class="px-gutter py-space-md space-y-4">
-            @if (session('status'))
-                <div class="p-3 rounded-xl bg-semantic-profit-bg/60 dark:bg-dark-surface-tint border border-forest-primary/20 dark:border-dark-lime/30 text-forest-primary dark:text-dark-lime text-body-sm font-medium">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-body-sm font-medium">
-                    {{ session('error') }}
-                </div>
-            @endif
 
             <!-- 2-Column Top Summary Bento Cards -->
             <section aria-label="Ringkasan Utang dan Piutang" class="grid grid-cols-2 gap-3">
@@ -231,13 +220,14 @@
                                         {{ $statusLabel }}
                                     </span>
                                     @if ($debt->payments->isEmpty())
-                                        <form method="POST" action="{{ route('debts.destroy', $debt) }}" onsubmit="return confirm('Hapus catatan {{ $debt->person_name }}?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" aria-label="Hapus catatan" class="w-7 h-7 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/50 flex items-center justify-center text-text-muted hover:text-rose-600 cursor-pointer">
-                                                <span class="material-symbols-outlined text-[15px]">delete</span>
-                                            </button>
-                                        </form>
+                                        <button
+                                            type="button"
+                                            @click="$dispatch('confirm-delete', { label: '{{ addslashes($debt->person_name) }}', action: '{{ route('debts.destroy', $debt) }}' })"
+                                            aria-label="Hapus catatan"
+                                            class="w-7 h-7 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/50 flex items-center justify-center text-text-muted hover:text-rose-600 cursor-pointer"
+                                        >
+                                            <span class="material-symbols-outlined text-[15px]">delete</span>
+                                        </button>
                                     @endif
                                 </div>
                             </div>

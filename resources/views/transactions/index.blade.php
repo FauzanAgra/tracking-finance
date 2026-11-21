@@ -179,11 +179,6 @@
         </header>
 
         <div class="px-gutter py-space-md space-y-4">
-            @if (session('status'))
-                <div class="p-3 rounded-xl bg-semantic-profit-bg/60 dark:bg-dark-surface-tint border border-forest-primary/20 dark:border-dark-lime/30 text-forest-primary dark:text-dark-lime text-body-sm font-medium">
-                    {{ session('status') }}
-                </div>
-            @endif
 
             <!-- 2-Column KPI Strip -->
             <section aria-label="Ringkasan Arus Kas" class="grid grid-cols-2 gap-2.5">
@@ -322,17 +317,14 @@
                                                 @endif
                                             </div>
 
-                                            <form method="POST" action="{{ route('transactions.destroy', $txn) }}" onsubmit="return confirm('Hapus transaksi ini dan kembalikan saldo dompet?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button
-                                                    type="submit"
-                                                    aria-label="Hapus transaksi"
-                                                    class="w-7 h-7 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/50 flex items-center justify-center text-text-muted dark:text-dark-text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
-                                                >
-                                                    <span class="material-symbols-outlined text-[16px]">delete</span>
-                                                </button>
-                                            </form>
+                                            <button
+                                                type="button"
+                                                @click="$dispatch('confirm-delete', { label: '{{ addslashes($txn->description ?: ($txn->category?->name ?? 'Transaksi')) }}', action: '{{ route('transactions.destroy', $txn) }}' })"
+                                                aria-label="Hapus transaksi"
+                                                class="w-7 h-7 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/50 flex items-center justify-center text-text-muted dark:text-dark-text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
+                                            >
+                                                <span class="material-symbols-outlined text-[16px]">delete</span>
+                                            </button>
                                         </div>
                                     </article>
                                 @endforeach

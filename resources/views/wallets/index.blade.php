@@ -87,19 +87,6 @@
         <!-- Main Content Canvas -->
         <div class="flex-1 px-gutter pt-space-md flex flex-col gap-space-md">
             <!-- Flash Notifications -->
-            @if (session('status'))
-                <div class="flex items-center gap-2 p-3 rounded-2xl bg-semantic-profit-bg text-semantic-profit-text border border-accent-lime dark:bg-dark-surface-tint dark:text-dark-lime dark:border-dark-border text-body-sm">
-                    <span class="material-symbols-outlined text-[18px] fill-1">check_circle</span>
-                    <span>{{ session('status') }}</span>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="flex items-center gap-2 p-3 rounded-2xl bg-semantic-loss-bg text-semantic-loss-text border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800 text-body-sm">
-                    <span class="material-symbols-outlined text-[18px] fill-1">error</span>
-                    <span>{{ session('error') }}</span>
-                </div>
-            @endif
 
             <!-- Top Summary Bento Card -->
             <section class="bg-surface-card dark:bg-dark-surface rounded-3xl p-5 border border-border-subtle dark:border-dark-border flex flex-col gap-space-sm relative overflow-hidden shadow-sm">
@@ -303,17 +290,14 @@
                                             >
                                                 <span class="material-symbols-outlined text-[14px]">edit</span>
                                             </button>
-                                            <form method="POST" action="{{ route('wallets.destroy', $wallet) }}" onsubmit="return confirm('Hapus dompet {{ $wallet->name }}?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button
-                                                    type="submit"
-                                                    aria-label="Hapus {{ $wallet->name }}"
-                                                    class="w-7 h-7 rounded-full bg-white/10 hover:bg-rose-500/80 flex items-center justify-center text-white active:scale-95 transition-all cursor-pointer"
-                                                >
-                                                    <span class="material-symbols-outlined text-[14px]">delete</span>
-                                                </button>
-                                            </form>
+                                            <button
+                                                type="button"
+                                                @click="$dispatch('confirm-delete', { label: '{{ addslashes($wallet->name) }}', action: '{{ route('wallets.destroy', $wallet) }}' })"
+                                                aria-label="Hapus {{ $wallet->name }}"
+                                                class="w-7 h-7 rounded-full bg-white/10 hover:bg-rose-500/80 flex items-center justify-center text-white active:scale-95 transition-all cursor-pointer"
+                                            >
+                                                <span class="material-symbols-outlined text-[14px]">delete</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -347,17 +331,14 @@
                                         >
                                             <span class="material-symbols-outlined text-[14px]">edit</span>
                                         </button>
-                                        <form method="POST" action="{{ route('wallets.destroy', $wallet) }}" onsubmit="return confirm('Hapus dompet {{ $wallet->name }}?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                type="submit"
-                                                aria-label="Hapus {{ $wallet->name }}"
-                                                class="w-7 h-7 rounded-full bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-semantic-loss-text dark:hover:text-rose-400 active:scale-95 transition-all cursor-pointer"
-                                            >
-                                                <span class="material-symbols-outlined text-[14px]">delete</span>
-                                            </button>
-                                        </form>
+                                        <button
+                                            type="button"
+                                            @click="$dispatch('confirm-delete', { label: '{{ addslashes($wallet->name) }}', action: '{{ route('wallets.destroy', $wallet) }}' })"
+                                            aria-label="Hapus {{ $wallet->name }}"
+                                            class="w-7 h-7 rounded-full bg-surface-tint dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-semantic-loss-text dark:hover:text-rose-400 active:scale-95 transition-all cursor-pointer"
+                                        >
+                                            <span class="material-symbols-outlined text-[14px]">delete</span>
+                                        </button>
                                     </div>
                                 </div>
 
