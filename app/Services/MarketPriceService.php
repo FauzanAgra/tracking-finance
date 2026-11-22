@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\InvestmentAsset;
+use App\Models\InvestmentPriceHistory;
 use App\Models\SystemExchangeRate;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
@@ -78,6 +79,7 @@ class MarketPriceService
                         'is_manual_price' => false,
                         'last_price_updated_at' => now(),
                     ]);
+                    InvestmentPriceHistory::recordPrice($asset->id, (float) $price);
                     $updated++;
                 } else {
                     $failed++;
@@ -100,6 +102,7 @@ class MarketPriceService
                     'is_manual_price' => false,
                     'last_price_updated_at' => now(),
                 ]);
+                InvestmentPriceHistory::recordPrice($asset->id, (float) $price);
                 $updated++;
             } else {
                 $failed++;

@@ -227,12 +227,29 @@
                                     <p class="text-label-xs text-text-muted dark:text-dark-text-muted">{{ $asset->name }} &bull; {{ $qtyLabel }}</p>
                                 </div>
 
-                                <div class="text-right">
-                                    <div class="text-title-md font-bold text-text-primary dark:text-dark-text-primary tabular-nums">
-                                        {{ $asset->currency }} {{ number_format($pos['market_value'], $decimals, ',', '.') }}
-                                    </div>
-                                    <div class="text-label-xs font-semibold tabular-nums {{ $assetProfit ? 'text-emerald-600 dark:text-dark-lime' : 'text-rose-600 dark:text-[#FDA4AF]' }}">
-                                        {{ $assetProfit ? '+' : '' }}{{ number_format($pnl, $decimals, ',', '.') }} ({{ $assetProfit ? '+' : '' }}{{ $pnlPct }}%)
+                                <div class="flex items-center gap-2.5">
+                                    @if (!empty($pos['sparkline_points']))
+                                        <div class="w-14 h-5 flex items-center justify-center shrink-0" title="Tren Harga Terkini">
+                                            <svg viewBox="0 0 54 20" class="w-full h-full overflow-visible">
+                                                <polyline
+                                                    fill="none"
+                                                    stroke="{{ $pos['is_trend_up'] ? '#10B981' : '#F43F5E' }}"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    points="{{ $pos['sparkline_points'] }}"
+                                                />
+                                            </svg>
+                                        </div>
+                                    @endif
+
+                                    <div class="text-right">
+                                        <div class="text-title-md font-bold text-text-primary dark:text-dark-text-primary tabular-nums">
+                                            {{ $asset->currency }} {{ number_format($pos['market_value'], $decimals, ',', '.') }}
+                                        </div>
+                                        <div class="text-label-xs font-semibold tabular-nums {{ $assetProfit ? 'text-emerald-600 dark:text-dark-lime' : 'text-rose-600 dark:text-[#FDA4AF]' }}">
+                                            {{ $assetProfit ? '+' : '' }}{{ number_format($pnl, $decimals, ',', '.') }} ({{ $assetProfit ? '+' : '' }}{{ $pnlPct }}%)
+                                        </div>
                                     </div>
                                 </div>
                             </div>

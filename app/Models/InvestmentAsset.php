@@ -64,6 +64,14 @@ class InvestmentAsset extends Model
     }
 
     /**
+     * Get historical recorded prices for sparkline trend analysis.
+     */
+    public function priceHistories(): HasMany
+    {
+        return $this->hasMany(InvestmentPriceHistory::class)->orderBy('recorded_date');
+    }
+
+    /**
      * Scope a query to investment assets belonging to a specific user.
      */
     public function scopeForUser(Builder $query, int $userId): Builder

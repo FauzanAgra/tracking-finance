@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\InvestmentAsset;
+use App\Models\InvestmentPriceHistory;
 use App\Models\InvestmentTransaction;
 use App\Models\SystemExchangeRate;
 use App\Models\User;
@@ -186,7 +187,7 @@ class InvestmentService
 
         $assets = InvestmentAsset::query()
             ->forUser($user->id)
-            ->with('transactions')
+            ->with(['transactions', 'priceHistories'])
             ->orderBy('asset_type')
             ->orderBy('symbol')
             ->get();
@@ -203,6 +204,32 @@ class InvestmentService
             $pos['market_value_idr'] = $pos['market_value'] * $fxRate;
             $pos['invested_capital_idr'] = $pos['invested_capital'] * $fxRate;
             $pos['unrealized_pnl_idr'] = $pos['unrealized_pnl'] * $fxRate;
+
+            // ADV-004: Sparkline points calculation
+            $histories = $asset->priceHistories->take(-7);
+            $prices = $histories->pluck('price')->all();
+            if (empty($prices)) {
+                $prices = [(float) $pos['current_price'], (float) $pos['current_price']];
+            } elseif (count($prices) === 1) {
+                $prices = [$prices[0], $prices[0]];
+            }
+
+            $min = min($prices);
+            $max = max($prices);
+            $range = $max - $min;
+            $n = count($prices);
+            $width = 54;
+            $height = 20;
+
+            $pts = [];
+            foreach ($prices as $i => $p) {
+                $x = $n > 1 ? round(($i / ($n - 1)) * $width, 1) : 0;
+                $y = $range > 0 ? round($height - (($p - $min) / $range) * ($height - 4) - 2, 1) : round($height / 2, 1);
+                $pts[] = "{$x},{$y}";
+            }
+
+            $pos['sparkline_points'] = implode(' ', $pts);
+            $pos['is_trend_up'] = end($prices) >= reset($prices);
 
             return $pos;
         });
@@ -238,6 +265,8 @@ class InvestmentService
             'is_manual_price' => true,
             'last_price_updated_at' => now(),
         ]);
+
+        InvestmentPriceHistory::recordPrice($asset->id, (float) $price);
 
         return $asset->refresh();
     }
