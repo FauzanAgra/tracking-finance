@@ -24,6 +24,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/wallets', [WalletController::class, 'index'])->name('wallets.index');
     Route::post('/wallets', [WalletController::class, 'store'])->name('wallets.store');
+    Route::get('/wallets/{wallet}', [WalletController::class, 'show'])->name('wallets.show');
     Route::put('/wallets/{wallet}', [WalletController::class, 'update'])->name('wallets.update');
     Route::patch('/wallets/{wallet}/default', [WalletController::class, 'setDefault'])->name('wallets.set-default');
     Route::delete('/wallets/{wallet}', [WalletController::class, 'destroy'])->name('wallets.destroy');

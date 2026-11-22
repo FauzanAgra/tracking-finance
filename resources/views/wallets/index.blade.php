@@ -246,7 +246,7 @@
                                                 <span class="material-symbols-outlined text-[19px]">{{ $wallet->icon }}</span>
                                             </div>
                                             <div>
-                                                <div class="text-label-lg font-bold text-white leading-tight">{{ $wallet->name }}</div>
+                                                <a href="{{ route('wallets.show', $wallet) }}" class="text-label-lg font-bold text-white hover:underline leading-tight block">{{ $wallet->name }}</a>
                                                 <span class="text-label-xs text-white/70">{{ $typeLabel }} &bull; {{ $wallet->currency }}</span>
                                             </div>
                                         </div>
@@ -317,7 +317,7 @@
                                             <span class="material-symbols-outlined text-[19px]">{{ $wallet->icon }}</span>
                                         </div>
                                         <div>
-                                            <h3 class="text-label-lg font-semibold text-text-primary dark:text-dark-text-primary leading-tight">{{ $wallet->name }}</h3>
+                                            <a href="{{ route('wallets.show', $wallet) }}" class="text-label-lg font-semibold text-text-primary dark:text-dark-text-primary hover:text-forest-primary dark:hover:text-dark-lime leading-tight block">{{ $wallet->name }}</a>
                                             <span class="text-label-xs text-text-muted dark:text-dark-text-muted">{{ $typeLabel }} &bull; {{ $wallet->currency }}</span>
                                         </div>
                                     </div>
