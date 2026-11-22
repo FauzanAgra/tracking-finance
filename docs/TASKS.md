@@ -1,8 +1,8 @@
 # Project Task Board & Implementation Backlog
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
-* **Total Tugas**: 52 Tiket (Dibagi menjadi 4 Gelombang Prioritas)
-* **Status Progres**: 52 / 52 Selesai (100%)
+* **Total Tugas**: 60 Tiket (Dibagi menjadi 6 Gelombang Prioritas)
+* **Status Progres**: 52 / 60 Selesai (86.7%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -164,3 +164,32 @@
 | [x] | `IMV-002` | Flash Toast Notification Global | Pesan sukses & error muncul sebagai toast animasi dari bawah layar, auto-dismiss 3,5 detik. | 2026-11-22 |
 | [x] | `IMV-003` | Pagination Riwayat Transaksi | Daftar transaksi di-paginate 20/halaman; statistik total tetap dihitung dari seluruh data filter. | 2026-11-22 |
 | [x] | `IMV-004` | Edit & Update Transaksi | Tombol ✏️ Edit di tiap baris membuka bottom-sheet modal pre-filled; saldo dompet diperbarui atomik. | 2026-11-22 |
+
+
+---
+
+# 🌊 GELOMBANG 5: Growth & Advanced Analytics (Tier 2)
+> *Tujuan: Menyediakan histori kekayaan visual, otomatisasi pencatatan transaksi rutin, analisis mendalam per dompet dan aset investasi, serta ekspor laporan PDF formal.*
+
+## 📊 Fase 12: Analisis Lanjutan & Otomatisasi (`ADV`)
+
+| Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
+|:---:|---|---|---|:---:|
+| [ ] | `ADV-001` | Grafik Riwayat Net Worth (Net Worth History Chart) | Snapshot saldo berkala via scheduler + visualisasi tren garis kekayaan di Dashboard. | - |
+| [ ] | `ADV-002` | Transaksi Rutin / Berulang (Recurring Transactions) | Template transaksi terjadwal (bulanan/mingguan) dengan eksekusi mutasi otomatis via cron. | - |
+| [ ] | `ADV-003` | Halaman Rincian Dompet (Wallet Detail View) | Klik kartu dompet membuka detail saldo, tren mutasi, dan riwayat transaksi dompet terkait. | - |
+| [ ] | `ADV-004` | Histori Harga & Sparkline Portofolio Investasi | Simpan histori pergerakan harga pasar saham/crypto + visualisasi mini chart tren per aset. | - |
+| [ ] | `ADV-005` | Ekspor Laporan Keuangan ke Format PDF | Download rangkuman arus kas dan rincian transaksi dalam format dokumen PDF resmi yang rapi. | - |
+
+---
+
+# 🌊 GELOMBANG 6: Intelligence & Collaboration (Tier 3)
+> *Tujuan: Membawa asisten AI interaktif, sistem pengingat otomatis proaktif, dan kemampuan multi-pengguna untuk pengelolaan keuangan keluarga/pasangan.*
+
+## 🤖 Fase 13: Magic AI & Keuangan Kolaboratif (`EXP`)
+
+| Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
+|:---:|---|---|---|:---:|
+| [ ] | `EXP-001` | Sistem Notifikasi & Pengingat Cerdas (Smart Alerts) | Peringatan in-app saat budget hampir habis (>80%), utang mendekati tempo, atau goal tercapai. | - |
+| [ ] | `EXP-002` | AI Financial Advisor / Chat (Gemini Powered) | Dialog interaktif dengan AI Gemini untuk analisis kebiasaan belanja dan estimasi masa depan. | - |
+| [ ] | `EXP-003` | Multi-User & Keuangan Keluarga (Household Finance) | Dukungan satu rumah tangga dengan peran akun terpisah (owner & anggota keluarga). | - |
