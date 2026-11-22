@@ -31,6 +31,14 @@
 
             <div class="flex items-center gap-1.5 shrink-0">
                 <a
+                    href="{{ route('advisor.index') }}"
+                    aria-label="AI Financial Advisor"
+                    title="Si Jamal AI Advisor"
+                    class="w-9 h-9 rounded-full bg-forest-subtle dark:bg-dark-lime/20 border border-forest-primary/30 dark:border-dark-lime/40 flex items-center justify-center text-forest-primary dark:text-dark-lime active:scale-95 transition-all"
+                >
+                    <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                </a>
+                <a
                     href="{{ route('notifications.index') }}"
                     aria-label="Pusat Notifikasi"
                     title="Notifikasi"

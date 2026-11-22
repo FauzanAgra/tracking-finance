@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvisorController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -77,6 +78,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
     Route::delete('/notifications/clear', [NotificationController::class, 'clear'])->name('notifications.clear');
+
+    Route::get('/advisor', [AdvisorController::class, 'index'])->name('advisor.index');
+    Route::post('/advisor/chat', [AdvisorController::class, 'ask'])->name('advisor.ask');
+    Route::post('/advisor/reset', [AdvisorController::class, 'reset'])->name('advisor.reset');
 });
 
 Route::middleware('auth')->group(function () {

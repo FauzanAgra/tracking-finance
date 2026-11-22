@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 60 Tiket (Dibagi menjadi 6 Gelombang Prioritas)
-* **Status Progres**: 58 / 60 Selesai (96.7%)
+* **Status Progres**: 59 / 60 Selesai (98.3%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -191,5 +191,5 @@
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
 | [x] | `EXP-001` | Sistem Notifikasi & Pengingat Cerdas (Smart Alerts) | Peringatan in-app saat budget hampir habis (>80%), utang mendekati tempo, atau goal tercapai. | 2026-11-22 |
-| [ ] | `EXP-002` | AI Financial Advisor / Chat (Gemini Powered) | Dialog interaktif dengan AI Gemini untuk analisis kebiasaan belanja dan estimasi masa depan. | - |
+| [x] | `EXP-002` | AI Financial Advisor / Chat (Gemini Powered) | Dialog interaktif dengan AI Gemini untuk analisis kebiasaan belanja dan estimasi masa depan. | 2026-11-22 |
 | [ ] | `EXP-003` | Multi-User & Keuangan Keluarga (Household Finance) | Dukungan satu rumah tangga dengan peran akun terpisah (owner & anggota keluarga). | - |
