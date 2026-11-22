@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 60 Tiket (Dibagi menjadi 6 Gelombang Prioritas)
-* **Status Progres**: 56 / 60 Selesai (93.3%)
+* **Status Progres**: 57 / 60 Selesai (95.0%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -179,7 +179,7 @@
 | [x] | `ADV-002` | Transaksi Rutin / Berulang (Recurring Transactions) | Template transaksi terjadwal (bulanan/mingguan) dengan eksekusi mutasi otomatis via cron. | 2026-11-22 |
 | [x] | `ADV-003` | Halaman Rincian Dompet (Wallet Detail View) | Klik kartu dompet membuka detail saldo, tren mutasi, dan riwayat transaksi dompet terkait. | 2026-11-22 |
 | [x] | `ADV-004` | Histori Harga & Sparkline Portofolio Investasi | Simpan histori pergerakan harga pasar saham/crypto + visualisasi mini chart tren per aset. | 2026-11-22 |
-| [ ] | `ADV-005` | Ekspor Laporan Keuangan ke Format PDF | Download rangkuman arus kas dan rincian transaksi dalam format dokumen PDF resmi yang rapi. | - |
+| [x] | `ADV-005` | Ekspor Laporan Keuangan ke Format PDF | Download rangkuman arus kas dan rincian transaksi dalam format dokumen PDF resmi yang rapi. | 2026-11-22 |
 
 ---
 

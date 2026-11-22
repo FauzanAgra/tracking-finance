@@ -198,6 +198,42 @@ class TransactionController extends Controller
     }
 
     /**
+     * Export filtered transactions to a printable PDF-ready statement view.
+     */
+    public function exportPdf(Request $request): View
+    {
+        $transactions = $this->buildFilteredQuery($request)->get();
+        $user = $request->user();
+
+        $totalIncome = (float) $transactions->where('type', 'income')->sum('amount');
+        $totalExpense = (float) $transactions->where('type', 'expense')->sum('amount');
+        $netCashflow = $totalIncome - $totalExpense;
+
+        $categoryBreakdown = $transactions->where('type', 'expense')
+            ->groupBy(fn ($t) => $t->category?->name ?? 'Lain-lain')
+            ->map(fn ($group) => [
+                'name' => $group->first()->category?->name ?? 'Lain-lain',
+                'amount' => (float) $group->sum('amount'),
+                'count' => $group->count(),
+                'color' => $group->first()->category?->color ?? '#6b7280',
+            ])
+            ->sortByDesc('amount')
+            ->values();
+
+        return view('transactions.pdf', [
+            'transactions' => $transactions,
+            'user' => $user,
+            'totalIncome' => $totalIncome,
+            'totalExpense' => $totalExpense,
+            'netCashflow' => $netCashflow,
+            'categoryBreakdown' => $categoryBreakdown,
+            'dateFrom' => $request->query('date_from'),
+            'dateTo' => $request->query('date_to'),
+            'filterType' => $request->query('type', 'all'),
+        ]);
+    }
+
+    /**
      * Build the filtered transaction query shared between index and CSV export.
      */
     private function buildFilteredQuery(Request $request): Builder
