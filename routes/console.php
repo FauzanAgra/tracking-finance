@@ -11,3 +11,7 @@ Artisan::command('inspire', function () {
 Schedule::command('investments:refresh-prices')
     ->dailyAt('16:30')
     ->timezone('Asia/Jakarta');
+
+Schedule::command('finance:check-alerts')
+    ->dailyAt('08:00')
+    ->timezone('Asia/Jakarta');

@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DebtController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReceiptScannerController;
 use App\Http\Controllers\RecurringTransactionController;
@@ -71,6 +72,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/receipts', [ReceiptScannerController::class, 'store'])->name('receipts.store');
     Route::get('/receipts/{receiptScan}', [ReceiptScannerController::class, 'show'])->name('receipts.show');
     Route::post('/receipts/{receiptScan}/confirm', [ReceiptScannerController::class, 'confirm'])->name('receipts.confirm');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+    Route::delete('/notifications/clear', [NotificationController::class, 'clear'])->name('notifications.clear');
 });
 
 Route::middleware('auth')->group(function () {

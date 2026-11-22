@@ -31,6 +31,19 @@
 
             <div class="flex items-center gap-1.5 shrink-0">
                 <a
+                    href="{{ route('notifications.index') }}"
+                    aria-label="Pusat Notifikasi"
+                    title="Notifikasi"
+                    class="relative w-9 h-9 rounded-full bg-surface-card dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-forest-primary dark:text-dark-lime active:scale-95 transition-all"
+                >
+                    <span class="material-symbols-outlined text-[18px]">notifications</span>
+                    @if(auth()->user()->unreadNotifications()->count() > 0)
+                        <span class="absolute -top-0.5 -right-0.5 min-w-4 h-4 px-1 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-canvas-base dark:ring-dark-canvas">
+                            {{ auth()->user()->unreadNotifications()->count() > 9 ? '9+' : auth()->user()->unreadNotifications()->count() }}
+                        </span>
+                    @endif
+                </a>
+                <a
                     href="{{ route('receipts.index') }}"
                     aria-label="Scan Struk AI"
                     title="Scan Struk AI"
