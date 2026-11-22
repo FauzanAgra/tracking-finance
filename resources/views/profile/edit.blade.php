@@ -177,7 +177,39 @@
                 </div>
             </section>
 
-            <!-- 3. Settings Group 2: Keamanan & Akun -->
+            <!-- 3. Settings Group 2: Keuangan Keluarga (Household EXP-003) -->
+            <section class="rounded-3xl bg-surface-card dark:bg-dark-surface border border-border-subtle dark:border-dark-border p-4 space-y-2.5 shadow-xs">
+                <div class="flex items-center gap-2 px-1">
+                    <span class="material-symbols-outlined text-forest-primary dark:text-dark-lime text-[18px]">diversity_1</span>
+                    <h2 class="text-label-md font-bold tracking-wider text-text-muted dark:text-dark-text-secondary uppercase">
+                        Keuangan Keluarga
+                    </h2>
+                </div>
+
+                <a
+                    href="{{ route('household.index') }}"
+                    class="w-full p-3 rounded-2xl bg-surface-tint dark:bg-[#101A15] border border-border-subtle dark:border-dark-border flex items-center justify-between text-left hover:border-forest-primary dark:hover:border-dark-lime transition-colors"
+                >
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-surface-card dark:bg-dark-surface-tint border border-border-subtle dark:border-dark-border flex items-center justify-center text-forest-primary dark:text-dark-lime">
+                            <span class="material-symbols-outlined text-[20px]">groups</span>
+                        </div>
+                        <div>
+                            <p class="text-title-md font-semibold text-text-primary dark:text-dark-text-primary leading-tight">Rumah Tangga</p>
+                            <p class="text-label-xs text-text-muted dark:text-dark-text-secondary mt-0.5">
+                                @if($user->householdMember)
+                                    {{ $user->householdMember->household->name }} ({{ $user->householdMember->role === 'owner' ? 'Kepala' : 'Anggota' }})
+                                @else
+                                    Belum terdaftar &bull; Buat / Gabung
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined text-[18px] text-text-muted">chevron_right</span>
+                </a>
+            </section>
+
+            <!-- 4. Settings Group 3: Keamanan & Akun -->
             <section class="rounded-3xl bg-surface-card dark:bg-dark-surface border border-border-subtle dark:border-dark-border p-4 space-y-2.5 shadow-xs">
                 <div class="flex items-center gap-2 px-1">
                     <span class="material-symbols-outlined text-forest-primary dark:text-dark-lime text-[18px]">shield</span>

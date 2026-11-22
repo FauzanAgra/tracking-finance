@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'icon',
     'is_default',
     'is_active',
+    'is_shared',
 ])]
 class Wallet extends Model
 {
@@ -39,6 +40,7 @@ class Wallet extends Model
         'icon' => 'wallet',
         'is_default' => false,
         'is_active' => true,
+        'is_shared' => false,
     ];
 
     /**
@@ -52,6 +54,7 @@ class Wallet extends Model
             'balance' => 'decimal:4',
             'is_default' => 'boolean',
             'is_active' => 'boolean',
+            'is_shared' => 'boolean',
         ];
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DebtController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\HouseholdController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
@@ -82,6 +83,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/advisor', [AdvisorController::class, 'index'])->name('advisor.index');
     Route::post('/advisor/chat', [AdvisorController::class, 'ask'])->name('advisor.ask');
     Route::post('/advisor/reset', [AdvisorController::class, 'reset'])->name('advisor.reset');
+
+    Route::get('/household', [HouseholdController::class, 'index'])->name('household.index');
+    Route::post('/household', [HouseholdController::class, 'store'])->name('household.store');
+    Route::post('/household/join', [HouseholdController::class, 'join'])->name('household.join');
+    Route::post('/household/leave', [HouseholdController::class, 'leave'])->name('household.leave');
+    Route::delete('/household', [HouseholdController::class, 'destroy'])->name('household.destroy');
+    Route::post('/household/invite-code', [HouseholdController::class, 'regenerateInviteCode'])->name('household.invite-code');
+    Route::delete('/household/members/{userId}', [HouseholdController::class, 'removeMember'])->name('household.remove-member');
+    Route::patch('/wallets/{wallet}/toggle-share', [HouseholdController::class, 'toggleWalletShare'])->name('wallets.toggle-share');
 });
 
 Route::middleware('auth')->group(function () {

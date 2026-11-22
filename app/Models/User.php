@@ -111,4 +111,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(ReceiptScan::class);
     }
+
+    /**
+     * Get the household membership for the user.
+     */
+    public function householdMember(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(HouseholdMember::class);
+    }
+
+    /**
+     * Get the active household the user belongs to.
+     */
+    public function getHouseholdAttribute(): ?Household
+    {
+        return $this->householdMember?->household;
+    }
 }
