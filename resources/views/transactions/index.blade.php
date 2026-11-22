@@ -331,6 +331,44 @@
                             </div>
                         </section>
                     @endforeach
+
+                    {{-- Pagination Controls (IMV-003) --}}
+                    @if ($paginator->hasPages())
+                        <div class="flex items-center justify-between gap-2 pt-3 pb-2 px-1">
+                            @if ($paginator->onFirstPage())
+                                <span class="px-3 py-1.5 rounded-full bg-surface-tint dark:bg-dark-surface-tint text-label-xs font-semibold text-text-muted dark:text-dark-text-muted cursor-not-allowed opacity-50">
+                                    &larr; Sebelumnya
+                                </span>
+                            @else
+                                <a
+                                    href="{{ $paginator->previousPageUrl() }}"
+                                    class="px-3 py-1.5 rounded-full bg-surface-card dark:bg-dark-surface border border-border-subtle dark:border-dark-border text-label-xs font-semibold text-text-primary dark:text-dark-text-primary hover:border-forest-primary dark:hover:border-dark-lime transition-colors"
+                                >
+                                    &larr; Sebelumnya
+                                </a>
+                            @endif
+
+                            <span class="text-label-xs text-text-muted dark:text-dark-text-secondary tabular-nums">
+                                Hal. {{ $paginator->currentPage() }} / {{ $paginator->lastPage() }}
+                            </span>
+
+                            @if ($paginator->hasMorePages())
+                                <a
+                                    href="{{ $paginator->nextPageUrl() }}"
+                                    class="px-3 py-1.5 rounded-full bg-forest-primary dark:bg-dark-lime text-white dark:text-dark-canvas text-label-xs font-semibold shadow-xs active:scale-95 transition-transform"
+                                >
+                                    Berikutnya &rarr;
+                                </a>
+                            @else
+                                <span class="px-3 py-1.5 rounded-full bg-surface-tint dark:bg-dark-surface-tint text-label-xs font-semibold text-text-muted dark:text-dark-text-muted cursor-not-allowed opacity-50">
+                                    Berikutnya &rarr;
+                                </span>
+                            @endif
+                        </div>
+                        <p class="text-center text-[11px] text-text-muted dark:text-dark-text-muted pb-1">
+                            Total {{ $paginator->total() }} transaksi
+                        </p>
+                    @endif
                 </div>
             @endif
         </div>

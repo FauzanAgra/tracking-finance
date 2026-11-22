@@ -199,4 +199,54 @@ class TransactionServiceAndControllerTest extends TestCase
         $this->assertEquals('1000000.0000', $wallet->fresh()->balance);
         $this->assertDatabaseMissing('transactions', ['id' => $transaction->id]);
     }
+
+    public function test_transactions_are_paginated_and_aggregates_remain_global(): void
+    {
+        $user = User::factory()->create();
+
+        $wallet = Wallet::create([
+            'user_id' => $user->id,
+            'name' => 'BCA',
+            'type' => 'bank',
+            'currency' => 'IDR',
+            'balance' => 5000000,
+            'is_default' => true,
+            'is_active' => true,
+        ]);
+
+        $category = Category::create([
+            'user_id' => $user->id,
+            'name' => 'Makan',
+            'type' => 'expense',
+        ]);
+
+        // Create 25 expense transactions of Rp 10.000 each (Total: Rp 250.000)
+        for ($i = 1; $i <= 25; $i++) {
+            Transaction::create([
+                'user_id' => $user->id,
+                'wallet_id' => $wallet->id,
+                'category_id' => $category->id,
+                'type' => 'expense',
+                'amount' => 10000,
+                'fee' => 0,
+                'transaction_date' => now()->subDays($i)->toDateString(),
+                'description' => "Item ke-{$i}",
+            ]);
+        }
+
+        // Page 1
+        $response = $this->actingAs($user)->get(route('transactions.index'));
+        $response->assertOk();
+        $response->assertSee('Item ke-1');
+        $response->assertSee('Hal. 1 / 2');
+        $response->assertSee('Total 25 transaksi');
+        // Aggregate total expense should be total of ALL 25 (250.000), not just page 1 (200.000)
+        $response->assertSee('250.000');
+
+        // Page 2
+        $responsePage2 = $this->actingAs($user)->get(route('transactions.index', ['page' => 2]));
+        $responsePage2->assertOk();
+        $responsePage2->assertSee('Item ke-25');
+        $responsePage2->assertSee('Hal. 2 / 2');
+    }
 }

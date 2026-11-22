@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 52 Tiket (Dibagi menjadi 4 Gelombang Prioritas)
-* **Status Progres**: 50 / 52 Selesai
+* **Status Progres**: 51 / 52 Selesai
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -162,5 +162,5 @@
 |:---:|---|---|---|:---:|
 | [x] | `IMV-001` | Reusable Delete Confirmation Modal | Semua tombol hapus di 7 halaman pakai modal Alpine.js terpusat, bukan browser `confirm()`. | 2026-11-22 |
 | [x] | `IMV-002` | Flash Toast Notification Global | Pesan sukses & error muncul sebagai toast animasi dari bawah layar, auto-dismiss 3,5 detik. | 2026-11-22 |
-| [ ] | `IMV-003` | Pagination Riwayat Transaksi | Daftar transaksi di-paginate 20/halaman; statistik total tetap dihitung dari seluruh data filter. | - |
+| [x] | `IMV-003` | Pagination Riwayat Transaksi | Daftar transaksi di-paginate 20/halaman; statistik total tetap dihitung dari seluruh data filter. | 2026-11-22 |
 | [ ] | `IMV-004` | Edit & Update Transaksi | Tombol ✏️ Edit di tiap baris membuka bottom-sheet modal pre-filled; saldo dompet diperbarui atomik. | - |

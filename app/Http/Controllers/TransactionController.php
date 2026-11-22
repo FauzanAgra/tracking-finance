@@ -33,14 +33,14 @@ class TransactionController extends Controller
         $dateFrom = $request->query('date_from');
         $dateTo = $request->query('date_to');
 
-        $transactions = $this->buildFilteredQuery($request)->get();
+        $statsBase = $this->buildFilteredQuery($request);
+        $totalIncome = (float) (clone $statsBase)->where('type', 'income')->sum('amount');
+        $totalExpense = (float) (clone $statsBase)->where('type', 'expense')->sum('amount');
+        $incomeCount = (int) (clone $statsBase)->where('type', 'income')->count();
+        $expenseCount = (int) (clone $statsBase)->where('type', 'expense')->count();
 
-        $totalIncome = (float) $transactions->where('type', 'income')->sum('amount');
-        $totalExpense = (float) $transactions->where('type', 'expense')->sum('amount');
-        $incomeCount = $transactions->where('type', 'income')->count();
-        $expenseCount = $transactions->where('type', 'expense')->count();
-
-        $groupedTransactions = $transactions->groupBy(fn (Transaction $t) => $t->transaction_date->format('Y-m-d'));
+        $paginated = $this->buildFilteredQuery($request)->paginate(20)->withQueryString();
+        $groupedTransactions = $paginated->getCollection()->groupBy(fn (Transaction $t) => $t->transaction_date->format('Y-m-d'));
 
         $wallets = Wallet::query()
             ->forUser($userId)
@@ -57,6 +57,7 @@ class TransactionController extends Controller
             ->get();
 
         return view('transactions.index', [
+            'paginator' => $paginated,
             'groupedTransactions' => $groupedTransactions,
             'totalIncome' => $totalIncome,
             'totalExpense' => $totalExpense,
