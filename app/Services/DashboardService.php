@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Debt;
 use App\Models\Goal;
+use App\Models\NetWorthSnapshot;
 use App\Models\SystemExchangeRate;
 use App\Models\Transaction;
 use App\Models\User;
@@ -175,6 +176,20 @@ class DashboardService
             ->limit(2)
             ->get();
 
+        // 8. ADV-001: Net Worth Snapshots & History Chart
+        $this->takeSnapshot($user, $now);
+
+        $snapshots = NetWorthSnapshot::query()
+            ->forUser($user->id)
+            ->orderBy('snapshot_date')
+            ->limit(30)
+            ->get();
+
+        $netWorthHistory = [
+            'labels' => $snapshots->map(fn (NetWorthSnapshot $s) => $s->snapshot_date->translatedFormat('d M'))->values()->all(),
+            'values' => $snapshots->map(fn (NetWorthSnapshot $s) => (float) $s->net_worth_idr)->values()->all(),
+        ];
+
         return [
             'net_worth_idr' => $netWorthIdr,
             'total_cash_idr' => $totalCashIdr,
@@ -190,6 +205,79 @@ class DashboardService
             'cashflow_trend' => $cashflowTrend,
             'recent_transactions' => $recentTransactions,
             'active_goals' => $activeGoals,
+            'net_worth_history' => $netWorthHistory,
         ];
+    }
+
+    /**
+     * Capture or update a daily Net Worth snapshot for the given user.
+     */
+    public function takeSnapshot(User $user, ?Carbon $date = null): NetWorthSnapshot
+    {
+        $targetDate = $date ?? Carbon::now();
+        $usdIdrRate = (float) (SystemExchangeRate::query()->where('pair', 'USD/IDR')->value('rate') ?? InvestmentService::DEFAULT_USD_IDR_RATE);
+        $usdtIdrRate = (float) (SystemExchangeRate::query()->where('pair', 'USDT/IDR')->value('rate') ?? $usdIdrRate);
+
+        $toIdr = static function (float $amount, string $currency) use ($usdIdrRate, $usdtIdrRate): float {
+            return match ($currency) {
+                'USD' => $amount * $usdIdrRate,
+                'USDT' => $amount * $usdtIdrRate,
+                default => $amount,
+            };
+        };
+
+        // Wallets cash
+        $wallets = Wallet::query()->forUser($user->id)->active()->get();
+        $totalCashIdr = (float) $wallets->sum(fn (Wallet $w) => $toIdr((float) $w->balance, $w->currency));
+
+        // Investment portfolio
+        $investmentSummary = $this->investmentService->getPortfolioSummary($user);
+        $totalInvestmentIdr = (float) $investmentSummary['total_market_value_idr'];
+
+        // Debts & receivables
+        $debts = Debt::query()->forUser($user->id)->whereIn('status', ['unpaid', 'partially_paid'])->with('payments')->get();
+        $totalReceivableIdr = 0.0;
+        $totalPayableIdr = 0.0;
+
+        foreach ($debts as $debt) {
+            $paid = (float) $debt->payments->sum('amount');
+            $remaining = max(0.0, (float) $debt->total_amount - $paid - (float) $debt->written_off_amount);
+            $remainingIdr = $toIdr($remaining, $debt->currency);
+
+            if ($debt->type === 'receivable') {
+                $totalReceivableIdr += $remainingIdr;
+            } else {
+                $totalPayableIdr += $remainingIdr;
+            }
+        }
+
+        $netWorthIdr = $totalCashIdr + $totalInvestmentIdr + $totalReceivableIdr - $totalPayableIdr;
+
+        $existing = NetWorthSnapshot::query()
+            ->where('user_id', $user->id)
+            ->whereDate('snapshot_date', $targetDate->toDateString())
+            ->first();
+
+        if ($existing) {
+            $existing->update([
+                'net_worth_idr' => $netWorthIdr,
+                'cash_idr' => $totalCashIdr,
+                'investment_idr' => $totalInvestmentIdr,
+                'receivable_idr' => $totalReceivableIdr,
+                'payable_idr' => $totalPayableIdr,
+            ]);
+
+            return $existing->fresh();
+        }
+
+        return NetWorthSnapshot::create([
+            'user_id' => $user->id,
+            'snapshot_date' => $targetDate->toDateString(),
+            'net_worth_idr' => $netWorthIdr,
+            'cash_idr' => $totalCashIdr,
+            'investment_idr' => $totalInvestmentIdr,
+            'receivable_idr' => $totalReceivableIdr,
+            'payable_idr' => $totalPayableIdr,
+        ]);
     }
 }

@@ -164,6 +164,24 @@
                 @endif
             </section>
 
+            <!-- ADV-001: GRAFIK TREN KEKAYAAN BERSIH (NET WORTH HISTORY) -->
+            @if (!empty($net_worth_history['values']) && count($net_worth_history['values']) > 0)
+                <section class="bg-surface-card dark:bg-dark-surface rounded-2xl p-4 border border-border-subtle dark:border-dark-border shadow-xs space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-title-md font-bold text-text-primary dark:text-dark-text-primary">Tren Kekayaan Bersih</h3>
+                            <p class="text-label-xs text-text-muted dark:text-dark-text-secondary">Riwayat snapshot harian (IDR)</p>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-accent-lime-soft dark:bg-dark-surface-tint text-forest-primary dark:text-dark-lime">
+                            Snapshot
+                        </span>
+                    </div>
+                    <div class="h-44">
+                        <canvas id="netWorthTrendChart" aria-label="Grafik tren kekayaan bersih"></canvas>
+                    </div>
+                </section>
+            @endif
+
             <!-- 4. GRAFIK ARUS KAS BULANAN 6 BULAN (DASH-003) -->
             <section class="bg-surface-card dark:bg-dark-surface rounded-2xl p-4 border border-border-subtle dark:border-dark-border shadow-xs space-y-3">
                 <div class="flex items-center justify-between">
@@ -246,6 +264,50 @@
             const isDark = document.documentElement.classList.contains('dark');
             const tickColor = isDark ? '#96ABA0' : '#47584F';
             const gridColor = isDark ? 'rgba(36, 59, 48, 0.5)' : 'rgba(227, 236, 225, 0.7)';
+
+            const nwEl = document.getElementById('netWorthTrendChart');
+            const nwData = @json($net_worth_history ?? ['labels' => [], 'values' => []]);
+            if (nwEl && nwData.values && nwData.values.length > 0) {
+                new Chart(nwEl, {
+                    type: 'line',
+                    data: {
+                        labels: nwData.labels,
+                        datasets: [{
+                            label: 'Net Worth',
+                            data: nwData.values,
+                            borderColor: '#34D399',
+                            backgroundColor: isDark ? 'rgba(52, 211, 153, 0.15)' : 'rgba(52, 211, 153, 0.1)',
+                            fill: true,
+                            tension: 0.35,
+                            borderWidth: 2.5,
+                            pointRadius: nwData.values.length <= 10 ? 3 : 1.5,
+                            pointBackgroundColor: '#34D399',
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: (ctx) => 'Rp ' + Number(ctx.raw).toLocaleString('id-ID'),
+                                },
+                            },
+                        },
+                        scales: {
+                            x: { ticks: { color: tickColor, maxTicksLimit: 6 }, grid: { display: false } },
+                            y: {
+                                ticks: {
+                                    color: tickColor,
+                                    callback: (v) => v >= 1000000 ? (v / 1000000) + 'M' : (v >= 1000 ? (v / 1000) + 'K' : v),
+                                },
+                                grid: { color: gridColor },
+                            },
+                        },
+                    },
+                });
+            }
 
             const donutEl = document.getElementById('expenseDonutChart');
             const expenseData = @json($expense_distribution);

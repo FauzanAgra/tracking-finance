@@ -2,7 +2,7 @@
 ## Tracking Finance: Personal Wealth, Cashflow & Investment Hub
 
 * **Total Tugas**: 60 Tiket (Dibagi menjadi 6 Gelombang Prioritas)
-* **Status Progres**: 52 / 60 Selesai (86.7%)
+* **Status Progres**: 53 / 60 Selesai (88.3%)
 * **Dokumentasi Terkait**:
   - [PRD (Product Requirements v1.2.0)](PRD.md)
   - [ERD (Database Schema v1.2.0)](ERD.md)
@@ -175,7 +175,7 @@
 
 | Status | ID Tiket | Nama Tugas | Kriteria Selesai (Acceptance Criteria) | Selesai |
 |:---:|---|---|---|:---:|
-| [ ] | `ADV-001` | Grafik Riwayat Net Worth (Net Worth History Chart) | Snapshot saldo berkala via scheduler + visualisasi tren garis kekayaan di Dashboard. | - |
+| [x] | `ADV-001` | Grafik Riwayat Net Worth (Net Worth History Chart) | Snapshot saldo berkala via scheduler + visualisasi tren garis kekayaan di Dashboard. | 2026-11-22 |
 | [ ] | `ADV-002` | Transaksi Rutin / Berulang (Recurring Transactions) | Template transaksi terjadwal (bulanan/mingguan) dengan eksekusi mutasi otomatis via cron. | - |
 | [ ] | `ADV-003` | Halaman Rincian Dompet (Wallet Detail View) | Klik kartu dompet membuka detail saldo, tren mutasi, dan riwayat transaksi dompet terkait. | - |
 | [ ] | `ADV-004` | Histori Harga & Sparkline Portofolio Investasi | Simpan histori pergerakan harga pasar saham/crypto + visualisasi mini chart tren per aset. | - |
