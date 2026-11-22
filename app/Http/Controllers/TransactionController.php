@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
+use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\Wallet;
@@ -105,6 +106,25 @@ class TransactionController extends Controller
         return redirect()
             ->route('transactions.index')
             ->with('status', 'Transaksi berhasil dicatat.');
+    }
+
+    /**
+     * Update an existing transaction and adjust wallet balances atomically.
+     */
+    public function update(UpdateTransactionRequest $request, Transaction $transaction): RedirectResponse
+    {
+        try {
+            $this->transactionService->updateTransaction($transaction, $request->validated());
+        } catch (DomainException $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
+
+        return redirect()
+            ->route('transactions.index')
+            ->with('status', 'Transaksi berhasil diperbarui.');
     }
 
     /**

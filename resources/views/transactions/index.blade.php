@@ -41,6 +41,42 @@
                     this.quickForm.destination_wallet_id = '';
                     this.quickForm.destination_amount = '';
                 }
+            },
+            editModalOpen: false,
+            editForm: {
+                id: '',
+                type: 'expense',
+                amount: '',
+                destination_amount: '',
+                wallet_id: '',
+                destination_wallet_id: '',
+                category_id: '',
+                fee: '0',
+                transaction_date: '',
+                description: '',
+            },
+            openEditModal(txn) {
+                this.editForm = {
+                    id: String(txn.id),
+                    type: txn.type,
+                    amount: String(txn.amount),
+                    destination_amount: txn.destination_amount ? String(txn.destination_amount) : '',
+                    wallet_id: String(txn.wallet_id),
+                    destination_wallet_id: txn.destination_wallet_id ? String(txn.destination_wallet_id) : '',
+                    category_id: txn.category_id ? String(txn.category_id) : '',
+                    fee: String(txn.fee ?? '0'),
+                    transaction_date: txn.transaction_date,
+                    description: txn.description ?? '',
+                };
+                this.editModalOpen = true;
+            },
+            setEditType(type) {
+                this.editForm.type = type;
+                this.editForm.category_id = '';
+                if (type !== 'transfer' && type !== 'currency_exchange') {
+                    this.editForm.destination_wallet_id = '';
+                    this.editForm.destination_amount = '';
+                }
             }
         }"
         class="flex-1 flex flex-col"
@@ -317,14 +353,36 @@
                                                 @endif
                                             </div>
 
-                                            <button
-                                                type="button"
-                                                @click="$dispatch('confirm-delete', { label: '{{ addslashes($txn->description ?: ($txn->category?->name ?? 'Transaksi')) }}', action: '{{ route('transactions.destroy', $txn) }}' })"
-                                                aria-label="Hapus transaksi"
-                                                class="w-7 h-7 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/50 flex items-center justify-center text-text-muted dark:text-dark-text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
-                                            >
-                                                <span class="material-symbols-outlined text-[16px]">delete</span>
-                                            </button>
+                                            <div class="flex items-center gap-1">
+                                                <button
+                                                    type="button"
+                                                    @click="openEditModal(@js([
+                                                        'id' => $txn->id,
+                                                        'type' => $txn->type,
+                                                        'amount' => $txn->amount,
+                                                        'destination_amount' => $txn->destination_amount,
+                                                        'wallet_id' => $txn->wallet_id,
+                                                        'destination_wallet_id' => $txn->destination_wallet_id,
+                                                        'category_id' => $txn->category_id,
+                                                        'fee' => $txn->fee,
+                                                        'transaction_date' => $txn->transaction_date->format('Y-m-d'),
+                                                        'description' => $txn->description,
+                                                    ]))"
+                                                    aria-label="Edit transaksi"
+                                                    class="w-7 h-7 rounded-full hover:bg-sky-50 dark:hover:bg-sky-950/50 flex items-center justify-center text-text-muted dark:text-dark-text-muted hover:text-sky-600 dark:hover:text-sky-400 transition-colors cursor-pointer"
+                                                >
+                                                    <span class="material-symbols-outlined text-[16px]">edit</span>
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    @click="$dispatch('confirm-delete', { label: '{{ addslashes($txn->description ?: ($txn->category?->name ?? 'Transaksi')) }}', action: '{{ route('transactions.destroy', $txn) }}' })"
+                                                    aria-label="Hapus transaksi"
+                                                    class="w-7 h-7 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/50 flex items-center justify-center text-text-muted dark:text-dark-text-muted hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
+                                                >
+                                                    <span class="material-symbols-outlined text-[16px]">delete</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </article>
                                 @endforeach
@@ -374,5 +432,6 @@
         </div>
 
         @include('transactions.partials.quick-transaction-modal')
+        @include('transactions.partials.edit-transaction-modal')
     </div>
 </x-layouts.mobile>

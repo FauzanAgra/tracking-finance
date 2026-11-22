@@ -169,6 +169,90 @@ class TransactionService
     }
 
     /**
+     * Update an existing transaction: reverse previous balance mutation, update columns, and apply new balance mutation atomically.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function updateTransaction(Transaction $transaction, array $data): Transaction
+    {
+        return DB::transaction(function () use ($transaction, $data): Transaction {
+            // 1. Reverse old balance mutation
+            $oldWallet = Wallet::query()->findOrFail($transaction->wallet_id);
+            match ($transaction->type) {
+                'income' => $this->walletService->debit($oldWallet, $transaction->amount),
+                'expense' => $this->walletService->credit($oldWallet, $transaction->amount),
+                'transfer', 'currency_exchange' => $this->reverseTransfer($transaction, $oldWallet),
+                default => throw new DomainException('Tipe transaksi ini belum mendukung pembaruan otomatis.'),
+            };
+
+            // 2. Prepare new data & calculate exchange_rate if needed
+            $type = $data['type'];
+            $amount = (float) $data['amount'];
+            $fee = (float) ($data['fee'] ?? 0);
+            $destinationAmount = isset($data['destination_amount']) && $data['destination_amount'] !== null && $data['destination_amount'] !== ''
+                ? (float) $data['destination_amount']
+                : null;
+
+            $exchangeRate = null;
+            if ($type === 'currency_exchange' && $destinationAmount !== null && $destinationAmount > 0) {
+                $exchangeRate = round($amount / $destinationAmount, 8);
+            }
+
+            // 3. Update the transaction model
+            $transaction->update([
+                'type' => $type,
+                'wallet_id' => $data['wallet_id'],
+                'destination_wallet_id' => in_array($type, ['transfer', 'currency_exchange'], true) ? ($data['destination_wallet_id'] ?? null) : null,
+                'category_id' => in_array($type, ['income', 'expense'], true) ? ($data['category_id'] ?? null) : null,
+                'amount' => $amount,
+                'destination_amount' => $destinationAmount,
+                'exchange_rate' => $exchangeRate,
+                'fee' => $fee,
+                'transaction_date' => $data['transaction_date'],
+                'description' => $data['description'] ?? null,
+            ]);
+
+            $transaction->refresh();
+
+            // 4. Apply new balance mutation
+            $newWallet = Wallet::query()->findOrFail($transaction->wallet_id);
+            match ($transaction->type) {
+                'income' => $this->walletService->credit($newWallet, $transaction->amount),
+                'expense' => $this->walletService->debit($newWallet, $transaction->amount),
+                'transfer' => $this->applyTransfer($transaction, $newWallet),
+                'currency_exchange' => $this->applyCurrencyExchange($transaction, $newWallet),
+                default => throw new DomainException('Tipe transaksi ini belum didukung.'),
+            };
+
+            return $transaction;
+        });
+    }
+
+    /**
+     * Apply same-currency transfer mutation.
+     */
+    private function applyTransfer(Transaction $transaction, Wallet $fromWallet): void
+    {
+        $toWallet = Wallet::query()->findOrFail($transaction->destination_wallet_id);
+        $this->walletService->transferSameCurrency($fromWallet, $toWallet, (float) $transaction->amount, (float) $transaction->fee);
+    }
+
+    /**
+     * Apply cross-currency exchange transfer mutation.
+     */
+    private function applyCurrencyExchange(Transaction $transaction, Wallet $fromWallet): void
+    {
+        $toWallet = Wallet::query()->findOrFail($transaction->destination_wallet_id);
+        $this->walletService->transferCurrencyExchange(
+            $fromWallet,
+            $toWallet,
+            (float) $transaction->amount,
+            (float) $transaction->destination_amount,
+            (float) $transaction->fee
+        );
+    }
+
+    /**
      * Reverse a same-currency transfer back to the source wallet.
      */
     private function reverseTransfer(Transaction $transaction, Wallet $fromWallet): void
